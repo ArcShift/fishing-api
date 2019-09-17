@@ -53,7 +53,35 @@
                         </div>
                     </div>
                 </form>
-                <a href="#">Lupa Password</a><br>
+                <a href="" data-toggle="modal" data-target="#modal-default">Lupa Password</a><br>
+            </div>
+        </div>
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form class="form-horizontal" method="post">
+                        <div class="box-body">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Lupa Password</h4>
+                            </div>
+                            <div class="modal-body">                                
+                                <p>Masukkan email untuk mereset password!</p>
+                                <div class="form-group">
+                                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary" name="resetPass" value="ok">Kirim</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </body>

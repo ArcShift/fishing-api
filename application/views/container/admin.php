@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>AdminLTE 2 | Dashboard</title>
+        <title><?php echo $this->config->item("app_name") ?></title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.7 -->
@@ -85,19 +85,36 @@
                 <section class="sidebar">
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu" id="rootMenu" data-widget="tree">
-                        <li class="header" >MENU</li>    
-                        <?php foreach ($module as $row) { ?>
+                        <li class="header" >MENU</li>
+                        <?php
+                        $modules = array(
+                            array("id" => "adm", "nama" => "Admin", "url" => "admin"),
+                        );
+                        ?>
+                        <?php foreach ($modules as $row) { ?>
                             <li<?php echo ' id="li' . $row['id'] . '"' ?>>
-                                <a<?php echo ' id="link' . $row['id'] . '"' ?>  href="<?php echo site_url($row['nama']) ?>">
-                                    <i class="fa fa-circle text-primary"></i> 
+                                <a<?php echo ' id="link' . $row['id'] . '"' ?>  href="<?php echo site_url($row['url']) ?>">
+                                    <i class="fa fa-circle text-primary"></i>
                                     <span><?php echo $row['nama']; ?></span>
-                                    <span class="pull-right-container"<?php echo ' id="pull' . $row['id'] . '"' ?>>
+    <!--                                    <span class="pull-right-container"<?php // echo ' id="pull' . $row['id'] . '"'   ?>>
                                         <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
+                                    </span>-->
                                 </a>
                                 <ul class="treeview-menu"></ul>
                             </li>
                         <?php } ?>
+                        <?php // foreach ($module as $row) { ?>
+<!--                            <li<?php // echo ' id="li' . $row['id'] . '"'   ?>>
+                        <a<?php // echo ' id="link' . $row['id'] . '"'   ?>  href="<?php // echo site_url($row['nama'])   ?>">
+                            <i class="fa fa-circle text-primary"></i> 
+                            <span><?php // echo $row['nama'];   ?></span>
+                            <span class="pull-right-container"<?php // echo ' id="pull' . $row['id'] . '"'   ?>>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu"></ul>
+                    </li>-->
+                        <?php // } ?>
                     </ul>
                 </section>
             </aside>
@@ -112,11 +129,24 @@
                     </section>
                 <?php } ?>
                 <section class="content">
+                <?php if (!empty($this->session->flashdata('msgSuccess'))) { ?>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-thumbs-o-up"></i> Sukses</h4>
+                        <?php echo $this->session->flashdata('msgSuccess') ?>
+                    </div>
+                <?php } else if (!empty($this->session->flashdata('msgError'))) { ?>
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Error!</h4>
+                        <?php echo $this->session->flashdata($msgError) ?>
+                    </div>
+                <?php } ?>
                     <?php $this->load->view($view) ?>
                 </section>
             </div>
             <footer class="main-footer">
-                <strong><a href="<?php site_url('copyright');?>">Copyright &copy;</a></strong>
+                <strong><a href="<?php site_url('copyright'); ?>">Copyright &copy;</a></strong>
             </footer>
         </div>
         <!-- ./wrapper -->

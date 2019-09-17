@@ -1,7 +1,7 @@
 <div class="box">
     <div class="box-body">
-        <a class="btn btn-primary fa fa-plus" href=""></a>
-        <form action="<?php echo site_url('user/detail'); ?>" method="post">
+        <a class="btn btn-primary fa fa-plus" href="<?php echo site_url('admin/create'); ?>"></a>
+        <form action="<?php echo site_url('admin/detail'); ?>" method="post">
             <table class="table">
                 <thead>
                     <tr>

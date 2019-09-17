@@ -1,11 +1,25 @@
 <?php
 
-class M_user extends CI_Model {
+class M_admin extends CI_Model {
 
     public function read() {
         $this->db->select("u.id, t.nama AS type, u.nama");
         $this->db->join("userType t", "u.idUserType = t.id");
         return $this->db->get("user u")->result_array();
+    }
+
+    public function create() {
+        $post= $this->input->post();
+        $data = array(
+            'nama' => $post['username'],
+            'idUserType' => $post['type'],
+            'pass' => $post['pass']
+        );
+        if ($this->db->insert('user', $data)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function detail() {

@@ -10,15 +10,13 @@ class Role extends MY_Controller {
     }
 
     public function index() {
-        $this->data['data1'] = $this->model->read();
-        if ($this->input->post()) {
-           $this->model->create(); 
+        if ($this->input->post("create")) {
+           $this->model->create();
+        }else if($this->input->post("update")) {
+           $this->model->update();
         }
-        $this->render('user/role');
-    }
-
-    public function create() {
-        
+        $this->data['data1'] = $this->model->read();
+        $this->render('adminconfig/role');
     }
 
     public function update() {

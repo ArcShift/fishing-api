@@ -7,10 +7,18 @@ class M_role extends CI_Model {
     }
 
     public function create() {
-        $data = array(
-            "nama" => $this->input->post("nama")
-        );
-        if ($this->db->insert("modul", $data)) {
+        $this->db->set('nama', $this->input->post("nama"));
+        if ($this->db->insert("userType")) {
+            return 'success';
+        } else {
+            return $this->db->_error_message();
+        }
+    }
+
+    public function update() {
+        $this->db->set('nama', $this->input->post("nama"));
+        $this->db->where('id', $this->input->post("id"));
+        if ($this->db->update("userType")) {
             return 'success';
         } else {
             return $this->db->_error_message();
