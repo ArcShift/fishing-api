@@ -67,7 +67,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="<?php echo site_url('user/detail') ?>" class="btn btn-default btn-flat">Profile</a>
+                                            <a href="<?php echo site_url('admin/profile') ?>" class="btn btn-default btn-flat">Profile</a>
                                         </div>
                                         <div class="pull-right">
                                             <a href="<?php echo site_url('login/logout') ?>" class="btn btn-default btn-flat">Log out</a>
@@ -89,6 +89,11 @@
                         <?php
                         $modules = array(
                             array("id" => "adm", "nama" => "Admin", "url" => "admin"),
+                            array("id" => "", "nama" => "General Map", "url" => ""),
+                            array("id" => "fish", "nama" => "Fish", "url" => ""),
+                            array("id" => "", "nama" => "Findings", "url" => ""),
+                            array("id" => "", "nama" => "Catches", "url" => ""),
+                            array("id" => "", "nama" => "", "url" => ""),
                         );
                         ?>
                         <?php foreach ($modules as $row) { ?>
@@ -103,18 +108,6 @@
                                 <ul class="treeview-menu"></ul>
                             </li>
                         <?php } ?>
-                        <?php // foreach ($module as $row) { ?>
-<!--                            <li<?php // echo ' id="li' . $row['id'] . '"'   ?>>
-                        <a<?php // echo ' id="link' . $row['id'] . '"'   ?>  href="<?php // echo site_url($row['nama'])   ?>">
-                            <i class="fa fa-circle text-primary"></i> 
-                            <span><?php // echo $row['nama'];   ?></span>
-                            <span class="pull-right-container"<?php // echo ' id="pull' . $row['id'] . '"'   ?>>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu"></ul>
-                    </li>-->
-                        <?php // } ?>
                     </ul>
                 </section>
             </aside>

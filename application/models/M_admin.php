@@ -3,17 +3,23 @@
 class M_admin extends CI_Model {
 
     public function read() {
+        if ($this->input->post('username')) {
+            $this->db->like('u.nama', $this->input->post('username'));
+        }
+        if ($this->input->post('role')) {
+            $this->db->like('t.id', $this->input->post('role'));
+        }
         $this->db->select("u.id, t.nama AS type, u.nama");
         $this->db->join("userType t", "u.idUserType = t.id");
         return $this->db->get("user u")->result_array();
     }
 
     public function create() {
-        $post= $this->input->post();
+        $post = $this->input->post();
         $data = array(
             'nama' => $post['username'],
             'idUserType' => $post['type'],
-            'pass' => $post['pass']
+            'pass' => md5($post['pass'])
         );
         if ($this->db->insert('user', $data)) {
             return true;
@@ -22,15 +28,20 @@ class M_admin extends CI_Model {
         }
     }
 
-    public function detail() {
-        if ($this->input->post('id')) {
-            $this->db->where('u.id', $this->input->post('id'));
-        } else {
-            $this->db->where('u.id', $this->session->userId);
-        }
+    public function detail($id) {
+        $this->db->where('u.id', $id);
         $this->db->select("u.id, t.nama AS type, u.nama");
         $this->db->join("userType t", "u.idUserType = t.id");
-        return $this->db->get("user u")->result_array();
+        return $this->db->get("user u")->result_array()[0];
+    }
+
+    public function delete($id) {
+        $this->db->where('id', $id);
+        if ($this->db->delete('user')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function checkPass() {

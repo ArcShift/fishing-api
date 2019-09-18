@@ -1,4 +1,4 @@
-<?php $d = $data1[0] ?>
+<?php $d = $data1 ?>
 <div class="row">
     <div class="col-sm-8">
         <div class="box">
