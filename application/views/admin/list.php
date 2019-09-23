@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-sm-5">
                     <select class="form-control" name="role">
-                        <option value="">-- Role --</option>
+                        <option value="">-- Jenis User --</option>
                         <?php foreach ($roles as $r) { ?>
                         <option value="<?php echo $r['id']?>"><?php echo $r['nama']?></option>                            
                         <?php }?>
@@ -26,8 +26,8 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama</th>
-                        <th>User Type</th>
+                        <th>Username</th>
+                        <th>Jenis User</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>

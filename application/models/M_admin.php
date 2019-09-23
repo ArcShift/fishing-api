@@ -9,8 +9,8 @@ class M_admin extends CI_Model {
         if ($this->input->post('role')) {
             $this->db->like('t.id', $this->input->post('role'));
         }
-        $this->db->select("u.id, t.nama AS type, u.nama");
-        $this->db->join("userType t", "u.idUserType = t.id");
+        $this->db->select("u.id, r.nama AS type, u.nama");
+        $this->db->join("role r", "u.idUserType = r.id");
         return $this->db->get("user u")->result_array();
     }
 
@@ -30,8 +30,8 @@ class M_admin extends CI_Model {
 
     public function detail($id) {
         $this->db->where('u.id', $id);
-        $this->db->select("u.id, t.nama AS type, u.nama");
-        $this->db->join("userType t", "u.idUserType = t.id");
+        $this->db->select("u.id, r.nama AS type, u.nama");
+        $this->db->join("role r", "u.idUserType = r.id");
         return $this->db->get("user u")->result_array()[0];
     }
 

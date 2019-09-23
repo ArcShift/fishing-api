@@ -89,11 +89,11 @@
                         <?php
                         $modules = array(
                             array("id" => "adm", "nama" => "Admin", "url" => "admin"),
-                            array("id" => "", "nama" => "General Map", "url" => ""),
+                            array("id" => "fsrm", "nama" => "Nelayan", "url" => "nelayan"),
+                            array("id" => "map", "nama" => "Peta", "url" => "peta"),
                             array("id" => "fish", "nama" => "Fish", "url" => ""),
                             array("id" => "", "nama" => "Findings", "url" => ""),
-                            array("id" => "", "nama" => "Catches", "url" => ""),
-                            array("id" => "", "nama" => "", "url" => ""),
+                            array("id" => "", "nama" => "Catches", "url" => "")
                         );
                         ?>
                         <?php foreach ($modules as $row) { ?>
@@ -132,7 +132,7 @@
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h4><i class="icon fa fa-ban"></i> Error!</h4>
-                        <?php echo $this->session->flashdata($msgError) ?>
+                        <?php echo $this->session->flashdata('msgError') ?>
                     </div>
                 <?php } ?>
                     <?php $this->load->view($view) ?>

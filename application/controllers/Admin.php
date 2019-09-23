@@ -35,8 +35,6 @@ class Admin extends MY_Controller {
                 } else {
                     $this->session->set_flashdata('msgError', 'Insert data gagal');
                 }
-            } else {
-                $this->session->set_flashdata('msgError', 'Validasi gagal');
             }
         }
         $this->render("admin/create");
@@ -56,7 +54,7 @@ class Admin extends MY_Controller {
                 }
             }
         } elseif ($this->input->post("saveData")) {
-            $this->form_validation->set_rules('nama', 'Nama', 'required');
+            $this->form_validation->set_rules('nama', 'Nama', 'required|is_unique[user.nama]');
             if ($this->form_validation->run()) {
                 if (!$this->model->updateData()) {
                     echo "gagal update data";
