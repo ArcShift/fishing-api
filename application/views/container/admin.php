@@ -34,7 +34,7 @@
         <div class="wrapper">
             <header class="main-header">
                 <!-- Logo -->
-                <a href="index2.html" class="logo">
+                <a href="<?php echo site_url() ?>" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><?php echo $this->config->item("short_app_name") ?></span>
                     <!-- logo for regular state and mobile devices -->

@@ -4,8 +4,15 @@ class M_nelayan extends CI_Model {
 
     private $table = "fisherman";
 
-    public function reads() {
-        return $this->db->get($this->table, $this->config->item('page_limit'))->result_array();
+    public function reads($page) {
+        
+        $result= array();
+        $result['count']=$this->db->count_all_results($this->table, FALSE);
+        $limit =$this->config->item('page_limit');
+        $offset = $limit*($page-1);
+        $this->db->limit($limit, $offset);
+        $result['data']=$this->db->get()->result_array();
+        return $result;
     }
 
     public function read($id) {

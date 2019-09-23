@@ -1,10 +1,12 @@
-<?php 
+<?php
 //print_r($this->input->post());
-$i=1;
+//print_r($this->session->userdata('pagination'));
+$i = 1+(($pagination['page']-1)*$this->config->item('page_limit'));
 ?>
 <div class="box">
     <form method="post">
         <div class="box-body">
+            <small class="label label-default">Total data: <?php echo $dataCount ?></small>
             <table class="table">
                 <thead>
                     <tr>
@@ -28,6 +30,7 @@ $i=1;
                     <?php } ?>
                 </tbody>
             </table>
+            <?php $this->load->view('addon/pagination') ?>
         </div>
     </form>
 </div>

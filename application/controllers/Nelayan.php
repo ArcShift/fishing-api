@@ -18,18 +18,23 @@ class Nelayan extends MY_Controller {
             redirect("/nelayan/detail");
         }
         $pagination = array(
-        "module" => "Nelayan",
-        "page" => 1
+            "module" => "Nelayan",
+            "page" => 1
         );
         if ($pagination["module"] == $this->session->userdata('pagination')["module"]) {
             $pagination = $this->session->userdata('pagination');
-            echo "update";
-        }else{
-            echo "create";
+//            echo "update";
+        } else {
+//            echo "create";
         }
-
+        if ($this->input->post('page')) {
+            $pagination['page'] = $this->input->post('page');
+        }
         $this->session->set_userdata('pagination', $pagination);
-        $this->data['data'] = $this->model->reads();
+        $this->data['pagination'] = $pagination;
+        $result = $this->model->reads($pagination['page']);
+        $this->data['dataCount'] = $result['count'];
+        $this->data['data'] = $result['data'];
         $this->render('nelayan/reads');
     }
 
