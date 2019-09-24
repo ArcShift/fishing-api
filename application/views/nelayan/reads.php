@@ -1,5 +1,5 @@
 <?php
-//print_r($this->input->post());
+print_r($this->input->post());
 //print_r($this->session->userdata('pagination'));
 $i = 1+(($pagination['page']-1)*$this->config->item('page_limit'));
 ?>
@@ -7,6 +7,7 @@ $i = 1+(($pagination['page']-1)*$this->config->item('page_limit'));
     <form method="post">
         <div class="box-body">
             <small class="label label-default">Total data: <?php echo $dataCount ?></small>
+            <button class="btn btn-primary fa fa-th pull-right" name="view" value="thumnail"></button>
             <table class="table">
                 <thead>
                     <tr>

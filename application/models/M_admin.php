@@ -7,7 +7,7 @@ class M_admin extends CI_Model {
             $this->db->like('u.nama', $this->input->post('username'));
         }
         if ($this->input->post('role')) {
-            $this->db->like('t.id', $this->input->post('role'));
+            $this->db->like('r.id', $this->input->post('role'));
         }
         $this->db->select("u.id, r.nama AS type, u.nama");
         $this->db->join("role r", "u.idUserType = r.id");
