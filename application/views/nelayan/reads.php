@@ -1,5 +1,5 @@
 <?php
-print_r($this->input->post());
+//print_r($this->input->post());
 //print_r($this->session->userdata('pagination'));
 $i = 1+(($pagination['page']-1)*$this->config->item('page_limit'));
 ?>

@@ -17,7 +17,8 @@ class MY_Controller extends CI_Controller {
         $this->data['title'] = $this->title;
         $this->data['view'] = $view;
         $this->data['module'] = $this->session->userdata('menu');
-        $this->load->view('container/admin', $this->data);
+        $this->load->view('container/source_admin', $this->data);
+//        $this->load->view('container/admin', $this->data);
     }
 
 }

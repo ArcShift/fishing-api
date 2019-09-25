@@ -15,7 +15,7 @@
                     <div class="col-sm-4">
                         <div class="box box-widget widget-user">
                             <div class="widget-user-image">
-                                <img class="img-circle" src="https://lh3.googleusercontent.com/-XR87VhPkuBQ/WF5aPmPtsVI/AAAAAAAABpg/52W88q-2Zpo/s300-c/cute-girl-20.jpg" alt="User Avatar">
+                                <img class="img-circle" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png" alt="User Avatar">
                             </div>
                             <!-- Add the bg color to the header using any of the bg-* classes -->
                             <div class="widget-user-header bg-black" style="background: url('https://kodi.wiki/images/thumb/3/39/Kodi-Wallpaper-2-Xmas-1080p_samfisher.jpg/300px-Kodi-Wallpaper-2-Xmas-1080p_samfisher.jpg') center center;">
