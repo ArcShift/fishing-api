@@ -12,20 +12,20 @@
 
         <!-- ================== BEGIN BASE CSS STYLE ================== -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:400,300,700" rel="stylesheet" id="fontFamilySrc" />
-        <link href="<?php echo base_url() ?>/assets/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
-        <link href="<?php echo base_url() ?>/assets/plugins/bootstrap/bootstrap-4.1.1/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="<?php echo base_url() ?>/assets/plugins/font-awesome/5.1/css/all.css" rel="stylesheet" />
-        <link href="<?php echo base_url() ?>/assets/css/animate.min.css" rel="stylesheet" />
-        <link href="<?php echo base_url() ?>/assets/css/style.min.css" rel="stylesheet" />
+        <link href="<?php echo base_url() ?>assets/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+        <link href="<?php echo base_url() ?>assets/plugins/bootstrap/bootstrap-4.1.1/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="<?php echo base_url() ?>assets/plugins/font-awesome/5.1/css/all.css" rel="stylesheet" />
+        <link href="<?php echo base_url() ?>assets/css/animate.min.css" rel="stylesheet" />
+        <link href="<?php echo base_url() ?>assets/css/style.min.css" rel="stylesheet" />
         <!-- ================== END BASE CSS STYLE ================== -->
 
         <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
-        <link href="<?php echo base_url() ?>/assets/plugins/bootstrap-calendar/css/bootstrap_calendar.css" rel="stylesheet" />
-        <link href="<?php echo base_url() ?>/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />	
+        <link href="<?php echo base_url() ?>assets/plugins/bootstrap-calendar/css/bootstrap_calendar.css" rel="stylesheet" />
+        <link href="<?php echo base_url() ?>assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />	
         <!-- ================== END PAGE LEVEL CSS STYLE ================== -->
 
         <!-- ================== BEGIN BASE JS ================== -->
-        <script src="<?php echo base_url() ?>/assets/plugins/pace/pace.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/plugins/pace/pace.min.js"></script>
         <!-- ================== END BASE JS ================== -->
 
         <!--[if lt IE 9]>
@@ -506,24 +506,24 @@
         <!-- end theme-panel -->
 
         <!-- ================== BEGIN BASE JS ================== -->
-        <script src="<?php echo base_url() ?>/assets/plugins/jquery/jquery-3.3.1.min.js"></script>
-        <script src="<?php echo base_url() ?>/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
-        <script src="<?php echo base_url() ?>/assets/plugins/bootstrap/bootstrap-4.1.1/js/bootstrap.bundle.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/plugins/jquery/jquery-3.3.1.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/plugins/bootstrap/bootstrap-4.1.1/js/bootstrap.bundle.min.js"></script>
         <!--[if lt IE 9]>
             <script src="../assets/crossbrowserjs/html5shiv.js"></script>
             <script src="../assets/crossbrowserjs/respond.min.js"></script>
         <![endif]-->
-        <script src="<?php echo base_url() ?>/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-        <script src="<?php echo base_url() ?>/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
+        <script src="<?php echo base_url() ?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/plugins/jquery-cookie/jquery.cookie.js"></script>
         <!-- ================== END BASE JS ================== -->
 
         <!-- ================== BEGIN PAGE LEVEL JS ================== -->
-        <script src="<?php echo base_url() ?>/assets/plugins/bootstrap-calendar/js/bootstrap_calendar.min.js"></script>
-        <script src="<?php echo base_url() ?>/assets/plugins/chart-js/Chart.min.js"></script>
-        <script src="<?php echo base_url() ?>/assets/plugins/gritter/js/jquery.gritter.js"></script>
-        <script src="<?php echo base_url() ?>/assets/js/page-index-v2.demo.min.js"></script>
-        <script src="<?php echo base_url() ?>/assets/js/demo.min.js"></script>
-        <script src="<?php echo base_url() ?>/assets/js/apps.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/plugins/bootstrap-calendar/js/bootstrap_calendar.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/plugins/chart-js/Chart.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/plugins/gritter/js/jquery.gritter.js"></script>
+        <script src="<?php echo base_url() ?>assets/js/page-index-v2.demo.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/js/demo.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/js/apps.min.js"></script>
         <!-- ================== END PAGE LEVEL JS ================== -->
 
         <script>
