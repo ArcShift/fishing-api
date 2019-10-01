@@ -13,16 +13,33 @@ class Admin extends MY_Controller {
     }
 
     public function index() {
+        $this->subTitle = "List";
         if ($this->input->post('initDelete')) {
             $this->session->set_flashdata('id', $this->input->post('initDelete'));
             redirect('/admin/delete');
         }
-        $this->data['data1'] = $this->model->read();
+        $pagination = array(
+            "module" => "Admin",
+            "page" => 1,
+        );
+        if ($pagination["module"] == $this->session->userdata('pagination')["module"]) {
+            $pagination = $this->session->userdata('pagination');
+        }
+        if ($this->input->post('page')) {
+            $pagination['page'] = $this->input->post('page');
+        }else if ($this->input->post('cari')) {
+            $pagination['page'] = 1;
+        }
+        $this->session->set_userdata('pagination', $pagination);
+        $this->data['pagination'] = $pagination;
+        $result= $this->model->read($pagination['page']);
+        $this->data['dataCount'] = $result['count'];
+        $this->data['data1'] = $result['data'];
         $this->render('admin/list');
     }
 
     public function create() {
-        $this->title = "Admin - Create";
+        $this->subTitle = "Create";
         if ($this->input->post('create')) {
             $this->form_validation->set_rules('username', 'Username', 'required|is_unique[user.nama]');
             $this->form_validation->set_rules('pass', 'Password', 'required');
@@ -31,7 +48,6 @@ class Admin extends MY_Controller {
                 if ($this->model->create()) {
                     $this->session->set_flashdata('msgSuccess', 'Data berhasil disimpan');
                     redirect('/admin');
-                    return;
                 } else {
                     $this->session->set_flashdata('msgError', 'Insert data gagal');
                 }
@@ -41,6 +57,7 @@ class Admin extends MY_Controller {
     }
 
     public function profile() {
+        $this->subTitle = "Profile";
         $this->load->helper(array('form', 'url'));
         if ($this->input->post("changePass")) {
             $this->form_validation->set_rules('pass', 'Password Lama', 'required|callback_check_pass');
@@ -66,13 +83,12 @@ class Admin extends MY_Controller {
                 }
             }
         }
-        $this->title = "Admin - Profil";
         $this->data['data1'] = $this->model->detail($this->session->userId);
         $this->render('admin/detail');
     }
 
     public function delete() {
-        $this->title = "Admin - Delete";
+        $this->subTitle = "Delete";
         if (!empty($this->session->flashdata('id'))) {
             $this->data['data'] = $this->model->detail($this->session->flashdata('id'));
         } elseif ($this->input->post('delete')) {

@@ -1,8 +1,8 @@
 <?php $d = $data1 ?>
 <div class="row">
     <div class="col-sm-8">
-        <div class="box">
-            <div class="box-body">
+        <div class="panel">
+            <div class="panel-body">
                 <form class="form-horizontal" method="post">
                     <input type="hidden" name="id" value="<?php echo $d['id'] ?>">
                     <div class="form-group <?php echo form_error('nama') != "" ? "has-error" : "" ?>">
@@ -24,9 +24,12 @@
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="box">
-            <form role="form" method="post">
-                <div class="box-body">
+        <form method="post">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Ubah Password</h1>
+                </div>
+                <div class="panel-body">
                     <input type="hidden" name="id" value="<?php echo $d['id'] ?>">
                     <?php
                     $field = array(
@@ -42,12 +45,10 @@
                             <span class="help-block"><?php echo form_error($f['f']); ?></span>
                         </div>
                     <?php } ?>
+                    <button type="submit" name="changePass" value="Simpan" class="btn btn-primary pull-right">Simpan</button>
                 </div>
-                <div class="box-footer">
-                    <input type="submit" name="changePass" value="Simpan" class="btn btn-primary pull-right"/>
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
 <script>

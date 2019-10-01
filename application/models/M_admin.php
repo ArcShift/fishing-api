@@ -2,7 +2,8 @@
 
 class M_admin extends CI_Model {
 
-    public function read() {
+    public function read($page) {
+        $result= array();
         if ($this->input->post('username')) {
             $this->db->like('u.nama', $this->input->post('username'));
         }
@@ -11,7 +12,12 @@ class M_admin extends CI_Model {
         }
         $this->db->select("u.id, r.nama AS type, u.nama");
         $this->db->join("role r", "u.idUserType = r.id");
-        return $this->db->get("user u")->result_array();
+        $result['count']=$this->db->count_all_results("user u", FALSE);
+        $limit =$this->config->item('page_limit');
+        $offset = $limit*($page-1);
+        $this->db->limit($limit, $offset);
+        $result['data']=$this->db->get()->result_array();
+        return $result; 
     }
 
     public function create() {

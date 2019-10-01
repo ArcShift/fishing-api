@@ -5,7 +5,6 @@ class M_nelayan extends CI_Model {
     private $table = "fisherman";
 
     public function reads($page) {
-        
         $result= array();
         $result['count']=$this->db->count_all_results($this->table, FALSE);
         $limit =$this->config->item('page_limit');

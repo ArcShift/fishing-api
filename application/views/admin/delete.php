@@ -1,8 +1,8 @@
-<div class="box box-danger">
-    <div class="box-header bg-red">
-        <h3>Anda yakin akan menghapus data ini?</h3>
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h1 class="panel-title">Anda yakin akan menghapus data ini?</h1>
     </div>
-    <div class="box-body">
+    <div class="panel-body">
         <table class="table">
             <tbody>
                 <tr>
@@ -16,7 +16,7 @@
             </tbody>
         </table>
     </div>
-    <div class="box-footer">
+    <div class="panel-footer">
         <form method="post">
             <a class="btn btn-primary" href="<?php echo site_url('admin') ?>">KEMBALI</a>
             <button class="btn btn-danger pull-right" name="delete" value="<?php echo $data['id']?>">HAPUS</button>

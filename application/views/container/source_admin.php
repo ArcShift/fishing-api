@@ -31,6 +31,26 @@
         <!--[if lt IE 9]>
             <script src="../assets/crossbrowserjs/excanvas.min.js"></script>
         <![endif]-->
+        <!-- ================== BEGIN BASE JS ================== -->
+        <script src="<?php echo base_url() ?>assets/plugins/jquery/jquery-3.3.1.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/plugins/bootstrap/bootstrap-4.1.1/js/bootstrap.bundle.min.js"></script>
+        <!--[if lt IE 9]>
+            <script src="../assets/crossbrowserjs/html5shiv.js"></script>
+            <script src="../assets/crossbrowserjs/respond.min.js"></script>
+        <![endif]-->
+        <script src="<?php echo base_url() ?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/plugins/jquery-cookie/jquery.cookie.js"></script>
+        <!-- ================== END BASE JS ================== -->
+
+        <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+        <script src="<?php echo base_url() ?>assets/plugins/bootstrap-calendar/js/bootstrap_calendar.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/plugins/chart-js/Chart.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/plugins/gritter/js/jquery.gritter.js"></script>
+        <script src="<?php echo base_url() ?>assets/js/page-index-v2.demo.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/js/demo.min.js"></script>
+        <script src="<?php echo base_url() ?>assets/js/apps.min.js"></script>
+        <!-- ================== END PAGE LEVEL JS ================== -->
     </head>
     <body>
         <!-- begin #page-loader -->
@@ -45,7 +65,7 @@
                 <div class="container-fluid">
                     <!-- begin mobile sidebar expand / collapse button -->
                     <div class="navbar-header">
-                        <a href="index.html" class="navbar-brand"><img src="../assets/img/logo.png" class="logo" alt="" /><?php echo $this->config->item("app_name") ?></a>
+                        <a href="<?php echo site_url()?>" class="navbar-brand"><img src="../assets/img/logo.png" class="logo" alt="" /><?php echo $this->config->item("app_name") ?></a>
                         <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -143,7 +163,7 @@
                                 <span class="hidden-xs"><?php echo $this->session->userdata('user') ?></span> <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:;">Edit Profile</a></li>
+                                <li><a href="<?php echo site_url('admin/profile') ?>">Edit Profile</a></li>
                                 <li><a href="javascript:;"><span class="badge badge-danger pull-right">2</span> Inbox</a></li>
                                 <li><a href="javascript:;">Calendar</a></li>
                                 <li><a href="javascript:;">Setting</a></li>
@@ -177,7 +197,7 @@
                                 <div class="name dropdown">
                                     <a href="javascript:;" data-toggle="dropdown"><?php echo $this->session->userdata('user') ?><b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="javascript:;">Edit Profile</a></li>
+                                        <li><a href="<?php echo site_url('admin/profile') ?>">Edit Profile</a></li>
                                         <li><a href="javascript:;"><span class="badge badge-danger pull-right">2</span> Inbox</a></li>
                                         <li><a href="javascript:;">Calendar</a></li>
                                         <li><a href="javascript:;">Setting</a></li>
@@ -185,24 +205,24 @@
                                         <li><a href="<?php echo site_url('login/logout') ?>">Log Out</a></li>
                                     </ul>
                                 </div>
-                                <div class="position">Front End Designer</div>
+                                <div class="position"><?php echo $this->session->userdata('role') ?></div>
                             </div>
                         </li>
                         <li class="nav-header">Navigation</li>
                         <?php
                         $modules = array(
-                            array("id" => "adm", "nama" => "Admin", "url" => "admin"),
-                            array("id" => "fsrm", "nama" => "Nelayan", "url" => "nelayan"),
-                            array("id" => "map", "nama" => "Peta", "url" => "peta"),
-                            array("id" => "fish", "nama" => "Fish", "url" => ""),
-                            array("id" => "", "nama" => "Findings", "url" => ""),
-                            array("id" => "", "nama" => "Catches", "url" => "")
+                            array("id" => "adm", "nama" => "Admin", "url" => "admin", "icon"=>"user-secret"),
+                            array("id" => "fsrm", "nama" => "Nelayan", "url" => "nelayan", "icon"=>"user"),
+                            array("id" => "map", "nama" => "Peta", "url" => "peta", "icon"=>"map-marked"),
+                            array("id" => "fish", "nama" => "Fish", "url" => "", "icon"=>"fish"),
+                            array("id" => "", "nama" => "Findings", "url" => "", "icon"=>"cogs"),
+                            array("id" => "", "nama" => "Catches", "url" => "", "icon"=>"shopping-basket")
                         );
                         ?>
                         <?php foreach ($modules as $m) { ?>
                             <li>
                                 <a href="<?php echo site_url($m['url']) ?>">
-                                    <i class="fa fa-gem"></i>
+                                    <i class="fa fa-<?php echo $m['icon']?>"></i>
                                     <span><?php echo $m['nama']; ?></span>
                                 </a>
                             </li>
@@ -223,16 +243,28 @@
             <!-- begin #content -->
             <div id="content" class="content">
                 <!-- begin breadcrumb -->
-                <ol class="breadcrumb pull-right">
+<!--                <ol class="breadcrumb pull-right">
                     <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
                     <li class="breadcrumb-item"><a href="javascript:;">Dashboard</a></li>
                     <li class="breadcrumb-item active">Dashboard v2</li>
-                </ol>
+                </ol>-->
                 <!-- end breadcrumb -->
                 <!-- begin page-header -->
-                <h1 class="page-header"><?php echo $title; ?> <small>...</small></h1>
+                <h1 class="page-header"><?php echo $title; ?> <small><?php echo $subTitle; ?></small></h1>
                 <!-- end page-header -->
-
+                <?php if (!empty($this->session->flashdata('msgSuccess'))) { ?>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-thumbs-o-up"></i> Sukses</h4>
+                        <?php echo $this->session->flashdata('msgSuccess') ?>
+                    </div>
+                <?php } else if (!empty($this->session->flashdata('msgError'))) { ?>
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Error!</h4>
+                        <?php echo $this->session->flashdata('msgError') ?>
+                    </div>
+                <?php } ?>
                 <?php $this->load->view($view) ?>
 
                 <!-- begin #footer -->
@@ -504,28 +536,6 @@
             </div>
         </div>
         <!-- end theme-panel -->
-
-        <!-- ================== BEGIN BASE JS ================== -->
-        <script src="<?php echo base_url() ?>assets/plugins/jquery/jquery-3.3.1.min.js"></script>
-        <script src="<?php echo base_url() ?>assets/plugins/jquery-ui/jquery-ui.min.js"></script>
-        <script src="<?php echo base_url() ?>assets/plugins/bootstrap/bootstrap-4.1.1/js/bootstrap.bundle.min.js"></script>
-        <!--[if lt IE 9]>
-            <script src="../assets/crossbrowserjs/html5shiv.js"></script>
-            <script src="../assets/crossbrowserjs/respond.min.js"></script>
-        <![endif]-->
-        <script src="<?php echo base_url() ?>assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-        <script src="<?php echo base_url() ?>assets/plugins/jquery-cookie/jquery.cookie.js"></script>
-        <!-- ================== END BASE JS ================== -->
-
-        <!-- ================== BEGIN PAGE LEVEL JS ================== -->
-        <script src="<?php echo base_url() ?>assets/plugins/bootstrap-calendar/js/bootstrap_calendar.min.js"></script>
-        <script src="<?php echo base_url() ?>assets/plugins/chart-js/Chart.min.js"></script>
-        <script src="<?php echo base_url() ?>assets/plugins/gritter/js/jquery.gritter.js"></script>
-        <script src="<?php echo base_url() ?>assets/js/page-index-v2.demo.min.js"></script>
-        <script src="<?php echo base_url() ?>assets/js/demo.min.js"></script>
-        <script src="<?php echo base_url() ?>assets/js/apps.min.js"></script>
-        <!-- ================== END PAGE LEVEL JS ================== -->
-
         <script>
             $(document).ready(function () {
                 App.init();

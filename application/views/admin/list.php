@@ -1,27 +1,31 @@
-<div class="box">
+<?php
+ $number=1+(($pagination['page']-1)*$this->config->item('page_limit'));
+?>
+<div class="panel panel-default">
     <form method="post">
-        <div class="box-header">
+        <div class="panel-heading">
             <div class="row">
                 <div class="col-sm-1">
-                    <a class="btn btn-primary fa fa-plus" href="<?php echo site_url('admin/create'); ?>"></a>
+                    <a class="btn btn-primary fa fa-plus" href="<?php echo site_url('admin/create'); ?>" title="Tambah Data"></a>
                 </div>
                 <div class="col-sm-5">
-                    <input class="form-control" name="username" placeholder="Username">
+                    <input class="form-control" name="username" placeholder="Username" value="<?php echo $this->input->post('username')?>">
                 </div>
                 <div class="col-sm-5">
                     <select class="form-control" name="role">
                         <option value="">-- Jenis User --</option>
                         <?php foreach ($roles as $r) { ?>
-                        <option value="<?php echo $r['id']?>"><?php echo $r['nama']?></option>                            
+                        <option value="<?php echo $r['id']?>" <?php echo $this->input->post('role')==$r['id']?'selected':'' ?>><?php echo $r['nama']?></option>                            
                         <?php }?>
                     </select>
                 </div>
                 <div class="col-sm-1">
-                    <button name="cari" value="ok" class="btn btn-primary fa fa-search"></button>
+                    <button name="cari" value="ok" class="btn btn-primary fa fa-search" title="Cari"></button>
                 </div>
             </div>
+            <small class="label label-info">Total data: <?php echo $dataCount ?></small>
         </div>
-        <div class="box-body">
+        <div class="panel-body">
             <table class="table">
                 <thead>
                     <tr>
@@ -34,7 +38,7 @@
                 <tbody>
                     <?php foreach ($data1 as $r) { ?>
                         <tr>
-                            <td></td>
+                            <td><?php echo $number++?></td>
                             <td><?php echo $r['nama'] ?></td>
                             <td><?php echo $r['type'] ?></td>
                             <td>
@@ -48,6 +52,9 @@
                     <?php } ?>
                 </tbody>
             </table>
+        </div>
+        <div class="panel-footer">
+            <?php $this->load->view('addon/pagination') ?>
         </div>
     </form>
 </div>

@@ -3,6 +3,7 @@
 class M_role extends CI_Model {
     private $table= "role";
     public function read() {
+        $this->db->order_by('id');
         return $this->db->get($this->table)->result_array();
     }
 

@@ -3,11 +3,13 @@
 //print_r($this->session->userdata('pagination'));
 $i = 1+(($pagination['page']-1)*$this->config->item('page_limit'));
 ?>
-<div class="box">
+<div class="panel panel-default">
     <form method="post">
-        <div class="box-body">
-            <small class="label label-default">Total data: <?php echo $dataCount ?></small>
+        <div class="panel-heading">
+            <small class="label label-info">Total data: <?php echo $dataCount ?></small>
             <button class="btn btn-primary fa fa-th pull-right" name="view" value="thumnail"></button>
+        </div>
+        <div class="panel-body">
             <table class="table">
                 <thead>
                     <tr>
