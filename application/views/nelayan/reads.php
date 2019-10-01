@@ -1,11 +1,17 @@
 <?php
-//print_r($this->input->post());
-//print_r($this->session->userdata('pagination'));
 $i = 1+(($pagination['page']-1)*$this->config->item('page_limit'));
 ?>
 <div class="panel panel-default">
     <form method="post">
         <div class="panel-heading">
+            <div class="row">
+                <div class="col-sm-11">
+                    <input class="form-control" name="nama" placeholder="Nama" value="<?php echo $this->input->post('nama')?>">
+                </div>
+                <div class="col-sm-1">
+                    <button name="cari" value="ok" class="btn btn-primary fa fa-search pull-right" title="Cari"></button>
+                </div>
+            </div>
             <small class="label label-info">Total data: <?php echo $dataCount ?></small>
             <button class="btn btn-primary fa fa-th pull-right" name="view" value="thumnail"></button>
         </div>

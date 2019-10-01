@@ -6,6 +6,9 @@ class M_nelayan extends CI_Model {
 
     public function reads($page) {
         $result= array();
+        if ($this->input->post('nama')) {
+            $this->db->like('name', $this->input->post('nama'));
+        }
         $result['count']=$this->db->count_all_results($this->table, FALSE);
         $limit =$this->config->item('page_limit');
         $offset = $limit*($page-1);

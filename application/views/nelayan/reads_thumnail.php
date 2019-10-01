@@ -1,15 +1,23 @@
-<div class="box">
+<div class="panel">
     <form method="post">
-        <div class="box-header">
-            <button class="btn btn-primary fa fa-list pull-right" name="view" value="list"></button>
-            <small class="label label-default">Total data: <?php echo $dataCount ?></small>
-            <br/>
-            <br/>
-            <div>
-                <?php $this->load->view('addon/pagination'); ?>
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-sm-11">
+                    <input class="form-control" name="nama" placeholder="Nama" value="<?php echo $this->input->post('nama') ?>">
+                </div>
+                <div class="col-sm-1">
+                    <button name="cari" value="ok" class="btn btn-primary fa fa-search pull-right" title="Cari"></button>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <small class="label label-info">Total data: <?php echo $dataCount ?></small>
+                    <button class="btn btn-primary fa fa-list pull-right" name="view" value="list" title="view"></button>
+                </div>
+            </div>
+            <?php $this->load->view('addon/pagination'); ?>
         </div>
-        <div class="box-body">
+        <div class="panel-body">
             <div class="row">
                 <?php foreach ($data as $r) { ?>
                     <div class="col-sm-4">

@@ -13,7 +13,6 @@ class Nelayan extends MY_Controller {
     }
 
     public function index() {
-//        $this->session->unset_userdata('pagination');
         if ($this->input->post('read')) {//GOTO detail page
             $this->session->set_flashdata("id", $this->input->post('read'));
             redirect("/nelayan/detail");
@@ -31,6 +30,8 @@ class Nelayan extends MY_Controller {
         }
         if ($this->input->post('page')) {
             $pagination['page'] = $this->input->post('page');
+        }else if ($this->input->post('cari')) {
+            $pagination['page'] = 1;
         }
         if ($this->input->post('view')) {
             $pagination['view'] = $this->input->post('view');
@@ -42,7 +43,9 @@ class Nelayan extends MY_Controller {
         $this->data['data'] = $result['data'];
         if ($pagination['view'] === 'list') {
             $this->render('nelayan/reads');
+            $this->subTitle = "List";
         } else {
+            $this->subTitle = "Thumnail";
             $this->render('nelayan/reads_thumnail');
         }
     }
