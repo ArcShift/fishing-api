@@ -7,4 +7,7 @@ class M_dashboard extends CI_Model{
     public function countFisherman() {
         return $this->db->count_all_results('fisherman');
     }
+    public function countFish() {
+        return $this->db->count_all_results('fish');
+    }
 }

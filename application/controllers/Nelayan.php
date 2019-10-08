@@ -42,8 +42,8 @@ class Nelayan extends MY_Controller {
         $this->data['dataCount'] = $result['count'];
         $this->data['data'] = $result['data'];
         if ($pagination['view'] === 'list') {
-            $this->render('nelayan/reads');
             $this->subTitle = "List";
+            $this->render('nelayan/reads');
         } else {
             $this->subTitle = "Thumnail";
             $this->render('nelayan/reads_thumnail');
@@ -51,6 +51,7 @@ class Nelayan extends MY_Controller {
     }
 
     public function detail() {
+        $this->subTitle = "Detail";
         if (empty($this->session->flashdata('id'))) {
             redirect('nelayan');
         }

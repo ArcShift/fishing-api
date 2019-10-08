@@ -39,7 +39,7 @@ $i = 1+(($pagination['page']-1)*$this->config->item('page_limit'));
                     <?php } ?>
                 </tbody>
             </table>
-            <?php $this->load->view('addon/pagination') ?>
+            <?php $this->load->view('template/pagination') ?>
         </div>
     </form>
 </div>

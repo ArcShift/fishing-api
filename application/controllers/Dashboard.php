@@ -10,6 +10,7 @@ class Dashboard extends MY_Controller {
     public function index() {
         $this->data['countAdmin']= $this->model->countAdmin();
         $this->data['countFisherman']= $this->model->countFisherman();
+        $this->data['countFish']= $this->model->countFish();
         $this->render('dashboard');
     }
 }

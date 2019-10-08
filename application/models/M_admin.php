@@ -17,7 +17,7 @@ class M_admin extends CI_Model {
         $offset = $limit*($page-1);
         $this->db->limit($limit, $offset);
         $result['data']=$this->db->get()->result_array();
-        return $result; 
+        return $result;
     }
 
     public function create() {

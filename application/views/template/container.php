@@ -214,7 +214,7 @@
                             array("id" => "adm", "nama" => "Admin", "url" => "admin", "icon"=>"user-secret"),
                             array("id" => "fsrm", "nama" => "Nelayan", "url" => "nelayan", "icon"=>"user"),
                             array("id" => "map", "nama" => "Peta", "url" => "peta", "icon"=>"map-marked"),
-                            array("id" => "fish", "nama" => "Fish", "url" => "", "icon"=>"fish"),
+                            array("id" => "fish", "nama" => "Ikan", "url" => "ikan", "icon"=>"fish"),
                             array("id" => "", "nama" => "Findings", "url" => "", "icon"=>"cogs"),
                             array("id" => "", "nama" => "Catches", "url" => "", "icon"=>"shopping-basket")
                         );

@@ -18,9 +18,37 @@ class MY_Controller extends CI_Controller {
         $this->data['title'] = $this->title;
         $this->data['subTitle'] = $this->subTitle;
         $this->data['view'] = $view;
-        $this->data['module'] = $this->session->userdata('menu');
-        $this->load->view('container/source_admin', $this->data);
-//        $this->load->view('container/admin', $this->data);
+        $this->data['module'] = $this->title;
+        $this->load->view('template/container', $this->data);
     }
 
+    protected function reads() {
+        $this->subTitle = "List";
+        if ($this->input->post('initDelete')) {
+            $this->session->set_flashdata('id', $this->input->post('initDelete'));
+            redirect('/'.$this->title.'/delete');
+        }
+        $pagination = array(
+            "module" => $this->title,
+            "page" => 1,
+        );
+        if ($pagination["module"] == $this->session->userdata('pagination')["module"]) {
+            $pagination = $this->session->userdata('pagination');
+        }
+        if ($this->input->post('page')) {
+            $pagination['page'] = $this->input->post('page');
+        } else if ($this->input->post('cari')) {
+            $pagination['page'] = 1;
+        }
+        $this->session->set_userdata('pagination', $pagination);
+        $this->data['pagination'] = $pagination;
+        $result = $this->model->reads($pagination['page']);
+        $this->data['dataCount'] = $result['count'];
+        $this->data['data'] = $result['data'];
+        $this->render('template/reads');
+    }
+    protected function delete() {
+        $this->subTitle = "Delete";
+        $this->render('template/delete');
+    }
 }

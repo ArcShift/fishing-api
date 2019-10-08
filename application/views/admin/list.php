@@ -54,7 +54,7 @@
             </table>
         </div>
         <div class="panel-footer">
-            <?php $this->load->view('addon/pagination') ?>
+            <?php $this->load->view('template/pagination') ?>
         </div>
     </form>
 </div>

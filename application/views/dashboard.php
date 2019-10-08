@@ -1,10 +1,10 @@
 <!--WIDGET-->
 <?php
 $widgets = array(
-    array("title" => "Admin", "color"=>"success", "icon"=>"user-secret", "value"=>$countAdmin, "note"=>"-", "progress"=>50),
-    array("title" => "Nelayan", "color"=>"primary", "icon"=>"user", "value"=>$countFisherman, "note"=>"-","progress"=>50),
-    array("title" => "Bandwith", "color"=>"grey", "icon"=>"hdd", "value"=>"259GB", "note"=>"kapasitas 1TB","progress"=>259/1024*100),
-    array("title" => "Laporan", "color"=>"inverse-dark", "icon"=>"file", "value"=>"1834", "note"=>"tertangani 764", "progress"=>764/1834*100),
+    array("title" => "Admin", "color"=>"success", "icon"=>"user-secret", "value"=>$countAdmin, "note"=>"-", "progress"=>50, "url"=>"admin"),
+    array("title" => "Nelayan", "color"=>"primary", "icon"=>"user", "value"=>$countFisherman, "note"=>"-","progress"=>50, "url"=>"nelayan"),
+    array("title" => "Database Ikan", "color"=>"grey", "icon"=>"fish", "value"=>$countFish, "note"=>"-","progress"=>50, "url"=>"ikan"),
+    array("title" => "Laporan", "color"=>"inverse-dark", "icon"=>"file", "value"=>"1834", "note"=>"tertangani 764", "progress"=>764/1834*100, "url"=>""),
     
 );
 ?>
@@ -23,7 +23,10 @@ $widgets = array(
                         <div class="progress-bar" style="width: <?php echo $w['progress']?>%"></div>
                     </div>
                 </div>
-                <div class="widget-stat-footer text-left"><?php echo $w['note']?></div>
+                <div class="widget-stat-footer text-left">
+                    <a class="btn btn-default fa fa-search" href="<?php echo site_url($w['url'])?>"></a>
+                    <?php // echo $w['note']?>
+                </div>
             </div>
         </div>
     <?php } ?>
