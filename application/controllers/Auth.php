@@ -32,19 +32,29 @@ class Auth extends REST_Controller {
 
     public function register_post() {
         $input = json_decode(file_get_contents('php://input'), TRUE);
-        if ($this->model->register($input)) {
-            $this->response('Data berhasil ditambahkan', 200);
+        $response= array();
+        if ($data=$this->model->register($input)) {
+            $response['message']='Data berhasil ditambahkan';
+            $response['data']=$data;
+            $this->response($response, 200);
         } else {
-            $this->response($this->db->error()['message'], 400);
+            $response['message']=$this->db->error()['message'];
+            $response['data']=null;
+            $this->response($response, 400);
         }
     }
 
     public function login_post() {
         $input = json_decode(file_get_contents('php://input'), TRUE);
+        $response= array();
         if ($data = $this->model->login($input)) {
-            $this->response($data, 200);
+            $response['message']='success';
+            $response['data']=$data;
+            $this->response($response, 200);
         } else {
-            $this->response("user / password salah", 400);
+            $response['message']="user / password salah";
+            $response['data']=null;
+            $this->response($response, 400);
         }
     }
 
