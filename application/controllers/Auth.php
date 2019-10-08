@@ -20,7 +20,6 @@ class Auth extends REST_Controller {
 
     public function token_post() {
         $headers = $this->input->request_headers();
-
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
             $decodedToken = AUTHORIZATION::validateToken($headers['Authorization']);
             if ($decodedToken != false) {
@@ -28,18 +27,25 @@ class Auth extends REST_Controller {
                 return;
             }
         }
-
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
-    }
-
-    public function login_post() {
-        $input = json_decode(file_get_contents('php://input'), TRUE);
-        $this->model->login($input);
     }
 
     public function register_post() {
         $input = json_decode(file_get_contents('php://input'), TRUE);
-        $this->model->register($input);
+        if ($this->model->register($input)) {
+            $this->response('Data berhasil ditambahkan', 200);
+        } else {
+            $this->response($this->db->error()['message'], 400);
+        }
+    }
+
+    public function login_post() {
+        $input = json_decode(file_get_contents('php://input'), TRUE);
+        if ($data = $this->model->login($input)) {
+            $this->response($data, 200);
+        } else {
+            $this->response("user / password salah", 400);
+        }
     }
 
 }
