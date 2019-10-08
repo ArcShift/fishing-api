@@ -50,9 +50,10 @@ class Auth extends REST_Controller {
         if ($data = $this->model->login($input)) {
             $response['message']='success';
             $response['data']=$data;
+            $response['trace']=$this->db->last_query();
             $this->response($response, 200);
         } else {
-            $response['message']="user / password salah";
+            $response['message']="user_password salah";
             $response['data']=null;
             $this->response($response, 400);
         }
