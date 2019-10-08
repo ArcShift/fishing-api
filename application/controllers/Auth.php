@@ -34,7 +34,7 @@ class Auth extends REST_Controller {
         $input = json_decode(file_get_contents('php://input'), TRUE);
         $response= array();
         if ($data=$this->model->register($input)) {
-            $response['message']='Data berhasil ditambahkan';
+            $response['message']='success';
             $response['data']=$data;
             $this->response($response, 200);
         } else {
@@ -50,10 +50,9 @@ class Auth extends REST_Controller {
         if ($data = $this->model->login($input)) {
             $response['message']='success';
             $response['data']=$data;
-            $response['trace']=$this->db->last_query();
             $this->response($response, 200);
         } else {
-            $response['message']="user_password salah";
+            $response['message']="user_password_salah";
             $response['data']=null;
             $this->response($response, 400);
         }
