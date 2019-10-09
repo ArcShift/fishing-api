@@ -20,7 +20,7 @@ class M_auth extends CI_Model {
         if ($this->db->count_all_results('fisherman', false) == 1) {
             return $this->db->get()->result_array()[0];
         } else {
-            return false;
+            return 'no_data';
         }
     }
 

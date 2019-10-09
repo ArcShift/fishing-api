@@ -1,14 +1,25 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once(APPPATH . "controllers/BaseAPI.php");
 
-require APPPATH . '/libraries/REST_Controller.php';
-
-class Auth extends REST_Controller {
+class Auth extends BaseAPI {
 
     public function __construct() {
         parent::__construct();
         $this->load->model('m_auth', 'model');
+    }
+
+    public function register_post() {
+        $input=$this->check_param('name','username','email', 'password');
+        $callback=$this->model->register($input);
+        $this->run_query($callback);
+    }
+
+    public function login_post() {
+        $input=$this->check_param('email', 'password');
+        $callback=$this->model->login($input);
+        $this->run_query($callback);
     }
 
     public function token_get() {
@@ -28,34 +39,6 @@ class Auth extends REST_Controller {
             }
         }
         $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
-    }
-
-    public function register_post() {
-        $input = json_decode(file_get_contents('php://input'), TRUE);
-        $response= array();
-        if ($data=$this->model->register($input)) {
-            $response['message']='success';
-            $response['data']=$data;
-            $this->response($response, 200);
-        } else {
-            $response['message']=$this->db->error()['message'];
-            $response['data']=null;
-            $this->response($response, 400);
-        }
-    }
-
-    public function login_post() {
-        $input = json_decode(file_get_contents('php://input'), TRUE);
-        $response= array();
-        if ($data = $this->model->login($input)) {
-            $response['message']='success';
-            $response['data']=$data;
-            $this->response($response, 200);
-        } else {
-            $response['message']="user_password_salah";
-            $response['data']=null;
-            $this->response($response, 400);
-        }
     }
 
 }
