@@ -12,9 +12,13 @@ class BaseAPI extends REST_Controller {
 
     protected function check_param(...$param) {
         $input = json_decode(file_get_contents('php://input'), TRUE);
+        $response = array();
         foreach ($param as $p) {
             if (!isset($input[$p])) {
-                $this->response("wrong_parameter", 200);
+                $response['message'] = 'error';
+                $response['data'] = null;
+                $response['error'] = 'wrong_parameter';
+                $this->response($response, 200);
             }
         }
         return $input;

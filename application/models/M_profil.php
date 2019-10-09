@@ -8,7 +8,11 @@ class M_profil extends CI_Model {
         if ($this->db->update('fisherman')) {
             $this->db->select('id, name, username, email, phone_number, mobile_token, bio, url_photo, total_post, following, followers');
             $this->db->where('id', $input['id']);
-            return $this->db->get('fisherman')->result_array()[0];
+            if ($this->db->count_all_results('fisherman', false) == 1) {
+                return $this->db->get()->result_array()[0];
+            } else {
+                return 'no_data';
+            }
         } else {
             return false;
         }
@@ -20,7 +24,11 @@ class M_profil extends CI_Model {
         if ($this->db->update('fisherman')) {
             $this->db->select('id, name, username, email, phone_number, mobile_token, bio, url_photo, total_post, following, followers');
             $this->db->where('id', $input['id']);
-            return $this->db->get('fisherman')->result_array()[0];
+            if ($this->db->count_all_results('fisherman', false) == 1) {
+                return $this->db->get()->result_array()[0];
+            } else {
+                return 'no_data';
+            }
         } else {
             return false;
         }
