@@ -10,22 +10,25 @@ class Profil extends BaseAPI {
         $this->load->model('m_profil', 'model');
     }
 
-    public function edit_post() {//unfinish 
-        $input = json_decode(file_get_contents('php://input'), TRUE);
-        $response = array();
-        print_r($input);
-//        print_r($this->input->post());
+    public function edit_post() {//unfinish
+        $input = $this->check_param('id', 'name', 'bio', 'phone_number');
+        $callback = $this->model->edit($input);
+        $this->run_query($callback);
     }
-
+    public function ubah_foto_post() {
+        $input=$this->check_param_form('id');
+        $response=$this->upload_media('profil','image',$input['id']);
+        $this->response($response, 200);
+    }
     public function edit_email_post() {
-        $input = $this->check_param('id','email');
-        $callback=$this->model->update_email($input);
+        $input = $this->check_param('id', 'email');
+        $callback = $this->model->update_email($input);
         $this->run_query($callback);
     }
 
     public function ubah_password_post() {
-        $input = $this->check_param('id','password');
-        $callback=$this->model->update_pass($input);
+        $input = $this->check_param('id', 'password');
+        $callback = $this->model->update_pass($input);
         $this->run_query($callback);
     }
 
