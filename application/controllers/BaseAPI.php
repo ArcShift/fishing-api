@@ -58,7 +58,7 @@ class BaseAPI extends REST_Controller {
         $this->response($response, 200);
     }
 
-    protected function upload_media($folder, $type = null, $filename = null) {
+    protected function upload_media_($folder, $type = null, $filename = null) {
         $response = array();
         $root = $_SERVER['DOCUMENT_ROOT'];
         $config['upload_path'] = $root . '/fishing/upload/' . $folder;
@@ -86,6 +86,31 @@ class BaseAPI extends REST_Controller {
             $response['error'] = null;
         }
         return $response;
+    }
+
+    public function upload_multiple_media($folder) {
+        $response = array();
+        $root = $_SERVER['DOCUMENT_ROOT'];
+        $config['upload_path'] = $root . '/fishing/upload/' . $folder;
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|mp4';
+        $this->load->library('upload', $config);
+        $data = array();
+        for ($i = 0; $i < count($_FILES['media']['name']); $i++) {
+            $_FILES['file']['name'] = $_FILES['media']['name'][$i];
+            $_FILES['file']['type'] = $_FILES['media']['type'][$i];
+            $_FILES['file']['tmp_name'] = $_FILES['media']['tmp_name'][$i];
+            $_FILES['file']['error'] = $_FILES['media']['error'][$i];
+            $_FILES['file']['size'] = $_FILES['media']['size'][$i];
+            if (!$this->upload->do_upload('file')) {
+                $response['message'] = 'error';
+                $response['data'] = null;
+                $response['error'] = $this->upload->display_errors();
+                $this->response($response, 200);
+            } else {
+                $data[$i] = $this->upload->data();
+            }
+        }
+        return $data;
     }
 
 }

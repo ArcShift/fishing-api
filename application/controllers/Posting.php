@@ -7,14 +7,20 @@ class Posting extends BaseAPI {
 
     public function __construct() {
         parent::__construct();
-//        $this->load->model('m_profil', 'model');
+        $this->load->model('m_posting', 'model');
     }
 
-    public function posting_post() {
-//        $input = json_decode(file_get_contents('php://input'), TRUE);
-//        print_r($input);
-//        print_r($this->input->post());
-//        print_r($_FILES);
+    public function index_post() {
+        $this->check_param_form('id', 'caption');
+        $data=$this->upload_multiple_media('post');
+        $response=$this->model->posting($data);
+        $this->response($response, 200);
+    }
+    public function pengaduan_post() {
+        $this->check_param_form('id_fisherman', 'latitude','longitude', 'full_name_location');
+        $data=$this->upload_multiple_media('pengaduan');
+        $response=$this->model->pengaduan($data);
+        $this->response($response, 200);
     }
 
 }
