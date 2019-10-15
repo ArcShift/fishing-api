@@ -10,7 +10,7 @@ class Base_model extends CI_Model {
                     $this->db->like($data['column'][array_search($f, $data['column'])]['field'], $this->input->post($f));
                 }
             }
-        }        
+        }
         $this->db->select(substr($data['table'], strpos($data['table'], " ") + 1) . '.id');
         foreach ($data['column'] as $c) {
             $this->db->select($c['field'] . " AS " . $c['title']);

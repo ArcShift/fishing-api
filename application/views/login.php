@@ -25,6 +25,7 @@
     <body class="hold-transition login-page">
         <div class="login-box">
             <div class="login-logo">
+            <img src="<?php echo base_url('assets/gambar/')?>logo.png" class="logo" width="60px" />
                 <b><?php echo $this->config->item("app_name") ?></b>
             </div>
             <!-- /.login-logo -->
