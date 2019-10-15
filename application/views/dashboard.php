@@ -4,8 +4,7 @@ $widgets = array(
     array("title" => "Admin", "color"=>"success", "icon"=>"user-secret", "value"=>$countAdmin, "note"=>"-", "progress"=>50, "url"=>"admin"),
     array("title" => "Nelayan", "color"=>"primary", "icon"=>"user", "value"=>$countFisherman, "note"=>"-","progress"=>50, "url"=>"nelayan"),
     array("title" => "Database Ikan", "color"=>"grey", "icon"=>"fish", "value"=>$countFish, "note"=>"-","progress"=>50, "url"=>"ikan"),
-    array("title" => "Laporan", "color"=>"inverse-dark", "icon"=>"file", "value"=>"1834", "note"=>"tertangani 764", "progress"=>764/1834*100, "url"=>""),
-    
+    array("title" => "Pengaduan", "color"=>"inverse-dark", "icon"=>"phone-volume", "value"=>$countPengaduan, "note"=>"tertangani 764", "progress"=>764/1834*100, "url"=>"pengaduan"),
 );
 ?>
 <div class="row">

@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-sm-5">
                     <select class="form-control" name="role">
-                        <option value="">-- Jenis User --</option>
+                        <option value="">-- Jenis Admin --</option>
                         <?php foreach ($roles as $r) { ?>
                         <option value="<?php echo $r['id']?>" <?php echo $this->input->post('role')==$r['id']?'selected':'' ?>><?php echo $r['nama']?></option>                            
                         <?php }?>

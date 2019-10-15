@@ -53,7 +53,7 @@
                         </div>
                     </div>
                 </form>
-                <a href="" data-toggle="modal" data-target="#modal-default">Lupa Password</a><br>
+                <!--<a href="" data-toggle="modal" data-target="#modal-default">Lupa Password</a><br>-->
             </div>
         </div>
         <div class="modal fade" id="modal-default">

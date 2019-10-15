@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if !IE]><!-->
@@ -21,7 +22,7 @@
 
         <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
         <link href="<?php echo base_url() ?>assets/plugins/bootstrap-calendar/css/bootstrap_calendar.css" rel="stylesheet" />
-        <link href="<?php echo base_url() ?>assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />	
+        <link href="<?php echo base_url() ?>assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
         <!-- ================== END PAGE LEVEL CSS STYLE ================== -->
 
         <!-- ================== BEGIN BASE JS ================== -->
@@ -65,7 +66,7 @@
                 <div class="container-fluid">
                     <!-- begin mobile sidebar expand / collapse button -->
                     <div class="navbar-header">
-                        <a href="<?php echo site_url()?>" class="navbar-brand"><img src="../assets/img/logo.png" class="logo" alt="" /><?php echo $this->config->item("app_name") ?></a>
+                        <a href="<?php echo site_url()?>" class="navbar-brand"><img src="<?php echo base_url('assets/gambar/')?>logo.png" class="logo" /><?php echo $this->config->item("app_name") ?></a>
                         <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -76,87 +77,6 @@
 
                     <!-- begin navbar-right -->
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <form class="navbar-form form-input-flat">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Enter keyword..." />
-                                    <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
-                                </div>
-                            </form>
-                        </li>
-                        <li class="dropdown">
-                            <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle has-notify" data-click="toggle-notify">
-                                <i class="fa fa-bell"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-notification pull-right">
-                                <li class="dropdown-header">Notifications (5)</li>
-                                <li class="notification-item">
-                                    <a href="javascript:;">
-                                        <div class="media"><i class="fa fa-exclamation-triangle"></i></div>
-                                        <div class="message">
-                                            <h6 class="title">Server Error Reports</h6>
-                                            <div class="time">3 minutes ago</div>
-                                        </div>
-                                        <div class="option" data-toggle="tooltip" data-title="Mark as Read" data-click="set-message-status" data-status="unread" data-container="body">
-                                            <i class="fa fa-circle"></i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-item">
-                                    <a href="javascript:;">
-                                        <div class="media"><img src="../assets/img/user_1.jpg" alt="" /></div>
-                                        <div class="message">
-                                            <h6 class="title">Solvia Smith</h6>
-                                            <p class="desc">Quisque pulvinar tellus sit amet sem scelerisque tincidunt.</p>
-                                            <div class="time">25 minutes ago</div>
-                                        </div>
-                                        <div class="option read" data-toggle="tooltip" data-title="Mark as Unread" data-click="set-message-status" data-status="read" data-container="body">
-                                            <i class="fa fa-circle"></i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-item">
-                                    <a href="javascript:;">
-                                        <div class="media"><img src="../assets/img/user_2.jpg" alt="" /></div>
-                                        <div class="message">
-                                            <h6 class="title">Olivia</h6>
-                                            <p class="desc">Quisque pulvinar tellus sit amet sem scelerisque tincidunt.</p>
-                                            <div class="time">35 minutes ago</div>
-                                        </div>
-                                        <div class="option read" data-toggle="tooltip" data-title="Mark as Unread" data-click="set-message-status" data-status="read" data-container="body">
-                                            <i class="fa fa-circle"></i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-item">
-                                    <a href="javascript:;">
-                                        <div class="media"><i class="fa fa-user-plus media-object"></i></div>
-                                        <div class="message">
-                                            <h6 class="title"> New User Registered</h6>
-                                            <div class="time">1 hour ago</div>
-                                        </div>
-                                        <div class="option read" data-toggle="tooltip" data-title="Mark as Unread" data-click="set-message-status" data-status="read" data-container="body">
-                                            <i class="fa fa-circle"></i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-item">
-                                    <a href="javascript:;">
-                                        <div class="media bg-success"><i class="fa fa-credit-card"></i></div>
-                                        <div class="message">
-                                            <h6 class="title"> New Item Sold</h6>
-                                            <div class="time">2 hour ago</div>
-                                        </div>
-                                        <div class="option read" data-toggle="tooltip" data-title="Mark as Read" data-click="set-message-status" data-status="read" data-container="body">
-                                            <i class="fa fa-circle"></i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="dropdown-footer text-center">
-                                    <a href="javascript:;">View more</a>
-                                </li>
-                            </ul>
-                        </li>
                         <li class="dropdown navbar-user">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="image"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png" alt="" /></span>
@@ -164,9 +84,9 @@
                             </a>
                             <ul class="dropdown-menu pull-right">
                                 <li><a href="<?php echo site_url('admin/profile') ?>">Edit Profile</a></li>
-                                <li><a href="javascript:;"><span class="badge badge-danger pull-right">2</span> Inbox</a></li>
+<!--                                <li><a href="javascript:;"><span class="badge badge-danger pull-right">2</span> Inbox</a></li>
                                 <li><a href="javascript:;">Calendar</a></li>
-                                <li><a href="javascript:;">Setting</a></li>
+                                <li><a href="javascript:;">Setting</a></li>-->
                                 <li class="divider"></li>
                                 <li><a href="<?php echo site_url('login/logout') ?>">Log Out</a></li>
                             </ul>
@@ -211,19 +131,20 @@
                         <li class="nav-header">Navigation</li>
                         <?php
                         $modules = array(
-                            array("id" => "adm", "nama" => "Admin", "url" => "admin", "icon"=>"user-secret"),
-                            array("id" => "fsrm", "nama" => "Nelayan", "url" => "nelayan", "icon"=>"user"),
-                            array("id" => "map", "nama" => "Peta", "url" => "peta", "icon"=>"map-marked"),
+                            array("id" => "adm", "nama" => "admin", "url" => "admin", "icon"=>"user-secret"),
+                            array("id" => "fsrm", "nama" => "nelayan", "url" => "nelayan", "icon"=>"user"),
+                            array("id" => "map", "nama" => "peta", "url" => "peta", "icon"=>"map-marked"),
                             array("id" => "fish", "nama" => "Ikan", "url" => "ikan", "icon"=>"fish"),
-                            array("id" => "", "nama" => "Findings", "url" => "", "icon"=>"cogs"),
-                            array("id" => "", "nama" => "Catches", "url" => "", "icon"=>"shopping-basket")
+                            array("id" => "cmpl", "nama" => "Pengaduan", "url" => "pengaduan", "icon"=>"phone-volume"),
+//                            array("id" => "", "nama" => "Findings", "url" => "", "icon"=>"cogs"),
+//                            array("id" => "", "nama" => "Catches", "url" => "", "icon"=>"shopping-basket")
                         );
                         ?>
                         <?php foreach ($modules as $m) { ?>
-                            <li>
+                        <li class="<?php echo $m['url']==$this->uri->segment(1)?'active':'' ?>">
                                 <a href="<?php echo site_url($m['url']) ?>">
                                     <i class="fa fa-<?php echo $m['icon']?>"></i>
-                                    <span><?php echo $m['nama']; ?></span>
+                                    <span><?php echo ucfirst($m['nama']) ?></span>
                                 </a>
                             </li>
                         <?php } ?>
@@ -250,7 +171,7 @@
                 </ol>-->
                 <!-- end breadcrumb -->
                 <!-- begin page-header -->
-                <h1 class="page-header"><?php echo $title; ?> <small><?php echo $subTitle; ?></small></h1>
+                <h1 class="page-header"><?php echo ucfirst($title) ?> <small><?php echo ucfirst($subTitle) ?></small></h1>
                 <!-- end page-header -->
                 <?php if (!empty($this->session->flashdata('msgSuccess'))) { ?>
                     <div class="alert alert-success alert-dismissible">
@@ -287,7 +208,6 @@
                     <!-- begin sidebar-nav -->
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="width-half"><a class="active" href="#today" data-toggle="tab">Today</a></li>
-                        <li class="width-half"><a href="#notifications" data-toggle="tab">Notifications</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="today">
@@ -296,153 +216,11 @@
                                     Sunday, May 31 st
                                 </li>
                                 <li class="divider"></li>
-                                <li class="nav-header">Stocks</li>
-                                <li>
-                                    <ul class="stock-list">
-                                        <li>
-                                            <div class="name">AAPL</div>
-                                            <div class="value">130.28</div>
-                                            <div class="percentage"><span class="label label-inverse">- 1.14%</span></div>
-                                        </li>
-                                        <li>
-                                            <div class="name">DOWJ</div>
-                                            <div class="value">18010.68</div>
-                                            <div class="percentage"><span class="label label-inverse">- 0.64%</span></div>
-                                        </li>
-                                        <li>
-                                            <div class="name">SBUX</div>
-                                            <div class="value">51.96</div>
-                                            <div class="percentage"><span class="label label-success">+ 0.29%</span></div>
-                                        </li>
-                                        <li>
-                                            <div class="name">NKE</div>
-                                            <div class="value">18010.68</div>
-                                            <div class="percentage"><span class="label label-inverse">- 0.62%</span></div>
-                                        </li>
-                                        <li>
-                                            <div class="name">YHOO</div>
-                                            <div class="value">42.94</div>
-                                            <div class="percentage"><span class="label label-inverse">- 0.31%</span></div>
-                                        </li>
-                                    </ul>
-                                </li>
+                                <li class="divider"></li>
                                 <li class="divider"></li>
                                 <li class="nav-header">Calendar</li>
                                 <li>
                                     <div id="schedule-calendar"></div>
-                                </li>
-                                <li class="divider"></li>
-                                <li class="nav-header">Latest Post</li>
-                                <li>
-                                    <ul class="nav-post">
-                                        <li>
-                                            <div class="image">
-                                                <img src="../assets/img/latest_post_1.jpg" alt="" />
-                                            </div>
-                                            <div class="info">
-                                                <div class="title">Mauris ac condimentum erat. Curabitur porta pretium ultricies.</div>
-                                                <div class="time">Today, 8.12am</div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="image">
-                                                <img src="../assets/img/latest_post_2.jpg" alt="" />
-                                            </div>
-                                            <div class="info">
-                                                <div class="title">Cras pretium ipsum vel nulla laoreet malesuada sed at turpis.</div>
-                                                <div class="time">Yesterday, 11.42pm</div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="image">
-                                                <img src="../assets/img/latest_post_3.jpg" alt="" />
-                                            </div>
-                                            <div class="info">
-                                                <div class="title">Ut sit amet vulputate ante. Nunc quis convallis arcu.</div>
-                                                <div class="time">Posted on 3 days ago</div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="divider"></li>
-                            </ul>
-                        </div>
-                        <div class="tab-pane" id="notifications">
-                            <ul class="nav">
-                                <li class="nav-header">Mailbox</li>
-                                <li>
-                                    <ul class="notification-list">
-                                        <li>
-                                            <div class="media"><i class="fa fa-check"></i></div>
-                                            <div class="info">
-                                                <div class="title"><a href="javascript:;">PHP version updated</a></div>
-                                                <div class="time">Yesterday, 6.06pm</div>
-                                                <div class="desc">Donec tristique malesuada nibh quis lobortis. Quisque viverra faucibus hendrerit.</div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="media"><i class="fa fa-bug text-danger"></i></div>
-                                            <div class="info">
-                                                <div class="title"><a href="javascript:;">10 Unknown mysql query detected</a></div>
-                                                <div class="time">Yesterday, 12.05am</div>
-                                                <div class="desc">Integer fermentum arcu et dolor sodales, quis laoreet justo aliquam.</div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="media"><img src="../assets/img/user_2.jpg" alt="" /></div>
-                                            <div class="info">
-                                                <div class="title"><a href="javascript:;">New email from David</a></div>
-                                                <div class="time">Just now</div>
-                                                <div class="desc">Nunc metus orci, lobortis eu luctus quis, dictum mollis ante.</div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="media"><img src="../assets/img/user_4.jpg" alt="" /></div>
-                                            <div class="info">
-                                                <div class="title"><a href="javascript:;">New email from Terry</a></div>
-                                                <div class="time">Today, 12.05am</div>
-                                                <div class="desc">Integer fermentum arcu et dolor sodales, quis laoreet justo aliquam.</div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="media"><img src="../assets/img/user_3.jpg" alt="" /></div>
-                                            <div class="info">
-                                                <div class="title"><a href="javascript:;">New email from Tom (2)</a></div>
-                                                <div class="time">Yesterday, 5.23pm</div>
-                                                <div class="desc">Integer fermentum arcu et dolor sodales, quis laoreet justo aliquam.</div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="divider"></li>
-                                <li class="nav-header">Activities Log</li>
-                                <li>
-                                    <ul class="notification-list">
-                                        <li>
-                                            <div class="media"><i class="fa fa-cog"></i></div>
-                                            <div class="info">
-                                                <div class="title"><a href="javascript:;">Your scheduled post has been published</a></div>
-                                                <div class="time">Just now</div>
-                                                <div class="desc">Aenean lobortis libero libero, vitae imperdiet dolor dictum id.</div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="media"><i class="fa fa-shield-alt"></i></div>
-                                            <div class="info">
-                                                <div class="title"><a href="javascript:;">Turn on the firewall</a></div>
-                                                <div class="time">Today, 7.08am</div>
-                                                <div class="desc">Donec at augue in mi egestas luctus fermentum et ex.</div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="media"><i class="fa fa-user-plus"></i></div>
-                                            <div class="info">
-                                                <div class="title"><a href="javascript:;">Added 2 admin user</a></div>
-                                                <div class="time">Today, 6.40am</div>
-                                                <div class="desc">Quisque elementum urna placerat mi vestibulum lacinia.</div>
-                                            </div>
-                                        </li>
-                                    </ul>
                                 </li>
                                 <li class="divider"></li>
                             </ul>

@@ -2,7 +2,7 @@
 
 class Ikan extends MY_Controller {
 
-    protected $title = "Ikan";
+    protected $title = "ikan";
 
     public function __construct() {
         parent::__construct();
@@ -11,10 +11,12 @@ class Ikan extends MY_Controller {
 
     public function index() {
         $this->data['filter'] = array("nama");
+        $this->data['table'] = "fish f";
         $this->data['column'] = array(
             array("title" => "nama", "field" => "name"),
             array("title" => "keterangan", "field" => "about_fish"),
         );
+        $this->data['crud']=array('create','read','update','delete');
         parent::reads();
     }
 
