@@ -3,7 +3,7 @@
 class M_posting extends CI_Model {
 
     function posting($data) {
-        $response= array();
+        $response = array();
         $post = $this->input->post();
         $this->db->trans_start();
         $this->db->set('id_fisherman', $post['id']);
@@ -28,8 +28,9 @@ class M_posting extends CI_Model {
         }
         return $response;
     }
+
     function pengaduan($data) {
-        $response= array();
+        $response = array();
         $post = $this->input->post();
         $this->db->trans_start();
         $this->db->set('id_fisherman', $post['id_fisherman']);

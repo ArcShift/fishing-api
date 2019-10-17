@@ -15,11 +15,14 @@ class Profil extends BaseAPI {
         $callback = $this->model->edit($input);
         $this->run_query($callback);
     }
+
     public function ubah_foto_post() {
-        $input=$this->check_param_form('id');
-        $response=$this->upload_media('profil','image',$input['id']);
-        $this->response($response, 200);
+        $input = $this->check_param_form('id');
+        $data = $this->upload_media('profil', 'image', $input['id']);
+        $callback = $this->model->update_foto($input, $data);
+        $this->run_query($callback);
     }
+
     public function edit_email_post() {
         $input = $this->check_param('id', 'email');
         $callback = $this->model->update_email($input);

@@ -58,7 +58,7 @@ class BaseAPI extends REST_Controller {
         $this->response($response, 200);
     }
 
-    protected function upload_media_($folder, $type = null, $filename = null) {
+    protected function upload_media($folder, $type = null, $filename = null) {
         $response = array();
         $root = $_SERVER['DOCUMENT_ROOT'];
         $config['upload_path'] = $root . '/fishing/upload/' . $folder;
@@ -71,7 +71,7 @@ class BaseAPI extends REST_Controller {
             $config['file_name'] = $filename;
             $config['overwrite'] = true;
         }
-        $config['max_size'] = 500000;
+        $config['max_size'] = 5000000000000;
         $config['max_width'] = 10000;
         $config['max_height'] = 10000;
         $this->load->library('upload', $config);
@@ -79,13 +79,10 @@ class BaseAPI extends REST_Controller {
             $response['message'] = 'error';
             $response['data'] = null;
             $response['error'] = $this->upload->display_errors();
+            $this->response($response, 200);
         } else {
-            $data = array('upload_data' => $this->upload->data());
-            $response['message'] = 'success';
-            $response['data'] = null;
-            $response['error'] = null;
+            return $this->upload->data();
         }
-        return $response;
     }
 
     public function upload_multiple_media($folder) {
