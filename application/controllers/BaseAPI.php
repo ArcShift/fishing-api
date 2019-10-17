@@ -61,7 +61,7 @@ class BaseAPI extends REST_Controller {
     protected function upload_media($folder, $type = null, $filename = null) {
         $response = array();
         $root = $_SERVER['DOCUMENT_ROOT'];
-        $config['upload_path'] = $root . '/fishing/upload/' . $folder;
+        $config['upload_path'] = $this->config->item('upload_path') . $folder;
         if ($type == 'image') {
             $config['allowed_types'] = 'gif|jpg|png|jpeg';
         } else {
@@ -88,7 +88,7 @@ class BaseAPI extends REST_Controller {
     public function upload_multiple_media($folder) {
         $response = array();
         $root = $_SERVER['DOCUMENT_ROOT'];
-        $config['upload_path'] = $root . '/fishing/upload/' . $folder;
+        $config['upload_path'] = $this->config->item('upload_path') . $folder;
         $config['allowed_types'] = 'gif|jpg|png|jpeg|mp4';
         $this->load->library('upload', $config);
         $data = array();
