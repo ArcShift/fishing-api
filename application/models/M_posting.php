@@ -23,7 +23,7 @@ class M_posting extends CI_Model {
             $response['error'] = $this->db->error()['message'];
         } else {
             $response['message'] = "success";
-            $response['data'] = 'ok';
+            $response['data'] = null;
             $response['error'] = null;
         }
         return $response;
