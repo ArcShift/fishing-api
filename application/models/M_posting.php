@@ -17,13 +17,13 @@ class M_posting extends CI_Model {
             $this->db->insert('fisherman_post_files');
         }
         $this->db->trans_complete();
-        if ($this->db->trans_status() === FALSE) {
+        if ($this->db->trans_status() == FALSE) {
             $response['message'] = "error";
             $response['data'] = null;
             $response['error'] = $this->db->error()['message'];
         } else {
             $response['message'] = "success";
-            $response['data'] = null;
+            $response['data'] = 'ok';
             $response['error'] = null;
         }
         return $response;
