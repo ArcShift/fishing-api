@@ -29,15 +29,15 @@ class M_profil extends CI_Model {
     private function update($input) {
         $this->db->where('id', $input['id']);
         if ($this->db->update('fisherman')) {
-            return $this->retrieve($input);
+            return $this->retrieve($input['id']);
         } else {
             return false;
         }
     }
 
-    public function retrieve($input) {
-        $this->db->select('id, name, username, email, phone_number, mobile_token, bio, url_photo, total_post, following, followers');
-        $this->db->where('id', $input['id']);
+    public function retrieve($id) {
+        $this->db->select('id, name, username, email, phone_number, mobile_token, bio, url_photo, total_post, following, followers, created_at, updated_at');
+        $this->db->where('id', $id);
         if ($this->db->count_all_results('fisherman', false) == 1) {
             $result = $this->db->get()->result_array()[0];
             if (!empty($result['url_photo'])) {
@@ -48,6 +48,41 @@ class M_profil extends CI_Model {
             return $result;
         } else {
             return 'no_data';
+        }
+    }
+
+    public function postinganku($input) {
+        $data= array();
+        $this->db->select('fp.id, fp.caption, fpf.url_file, fp.created_at, f.id AS id_fisherman, f.username, f.url_photo');
+        $this->db->where('id_fisherman', $input['id']);
+        $this->db->join('fisherman_post fp', 'fp.id = fpf.id_fisherman_post');
+        $this->db->join('fisherman f', 'f.id = fp.id_fisherman');
+        $result = $this->db->get('fisherman_post_files fpf')->result_array();
+//        die($this->db->last_query());
+        if(empty($result)){
+            return 'no_data';
+        } else {
+            foreach ($result as $r) {
+                $data[$r['id']]=array();
+                $data[$r['id']]['file']=array();
+            }
+            foreach ($result as $r) {
+                $data[$r['id']]['caption']=$r['caption'];
+                $data[$r['id']]['created_at']=$r['created_at'];
+                $data[$r['id']]['loves']=null;
+                $data[$r['id']]['user']=array(
+                    'id_user'=>$r['id_fisherman'],
+                    'username'=>$r['username'],
+                    'url_photo'=>base_url('upload/profil/').$r['url_photo'],
+                );
+                array_push($data[$r['id']]['file'],base_url('upload/post/').$r['url_file']);
+            }
+            $data2= array();
+            foreach ($data as $k=> $d) {
+                $d['id_post']= $k;
+                array_push($data2, $d);
+            }
+            return $data2;
         }
     }
 

@@ -8,6 +8,7 @@ class BaseAPI extends REST_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->load->model('m_profil');
     }
 
     protected function check_param(...$param) {
@@ -38,7 +39,7 @@ class BaseAPI extends REST_Controller {
         return $input;
     }
 
-    protected function run_query($callback) {
+    protected function get_response($callback) {
         $response = array();
         if ($callback) {
             if ($callback === "no_data") {
@@ -57,7 +58,13 @@ class BaseAPI extends REST_Controller {
         }
         $this->response($response, 200);
     }
-
+    protected function get_user($id) {
+        if(!empty($id)){
+            $callback=$this->m_profil->retrieve($id);
+        }
+        $this->get_response($callback);
+    }
+    
     protected function upload_media($folder, $type = null, $filename = null) {
         $response = array();
         $root = $_SERVER['DOCUMENT_ROOT'];

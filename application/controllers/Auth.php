@@ -12,14 +12,14 @@ class Auth extends BaseAPI {
 
     public function register_post() {
         $input=$this->check_param('name','username','email', 'password');
-        $callback=$this->model->register($input);
-        $this->run_query($callback);
+        $id=$this->model->register($input);
+        $this->get_user($id);
     }
 
     public function login_post() {
         $input=$this->check_param('email', 'password');
-        $callback=$this->model->login($input);
-        $this->run_query($callback);
+        $id=$this->model->login($input);
+        $this->get_user($id);
     }
 
     public function token_get() {
