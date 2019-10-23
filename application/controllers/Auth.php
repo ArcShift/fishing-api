@@ -11,13 +11,13 @@ class Auth extends BaseAPI {
     }
 
     public function register_post() {
-        $input=$this->check_param('name','username','email', 'password');
+        $input=$this->check_param_raw('name','username','email', 'password');
         $id=$this->model->register($input);
         $this->get_user($id);
     }
 
     public function login_post() {
-        $input=$this->check_param('email', 'password');
+        $input=$this->check_param_raw('email', 'password');
         $id=$this->model->login($input);
         $this->get_user($id);
     }

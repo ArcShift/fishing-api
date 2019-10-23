@@ -11,7 +11,7 @@ class Profil extends BaseAPI {
     }
 
     public function edit_post() {//unfinish
-        $input = $this->check_param('id', 'name', 'bio', 'phone_number');
+        $input = $this->check_param_raw('id', 'name', 'bio', 'phone_number');
         $callback = $this->model->edit($input);
         $this->get_response($callback);
     }
@@ -24,19 +24,19 @@ class Profil extends BaseAPI {
     }
 
     public function edit_email_post() {
-        $input = $this->check_param('id', 'email');
+        $input = $this->check_param_raw('id', 'email');
         $callback = $this->model->update_email($input);
         $this->get_response($callback);
     }
 
     public function ubah_password_post() {
-        $input = $this->check_param('id', 'password');
+        $input = $this->check_param_raw('id', 'password');
         $callback = $this->model->update_pass($input);
         $this->get_response($callback);
     }
 
     public function postinganku_get() {
-        $input = $this->check_param('id', 'page');
+        $input = $this->check_param_get('id', 'page');
         $callback = $this->model->postinganku2($input);
         $this->get_response($callback);
     }

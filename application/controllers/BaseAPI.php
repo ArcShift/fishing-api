@@ -11,8 +11,7 @@ class BaseAPI extends REST_Controller {
         $this->load->model('m_profil');
     }
 
-    protected function check_param(...$param) {
-        $input = json_decode(file_get_contents('php://input'), TRUE);
+    protected function check_param($param, $input) {
         $response = array();
         foreach ($param as $p) {
             if (!isset($input[$p])) {
@@ -25,18 +24,19 @@ class BaseAPI extends REST_Controller {
         return $input;
     }
 
+    protected function check_param_raw(...$param) {
+        $input = json_decode(file_get_contents('php://input'), TRUE);
+        return $this->check_param($param, $input);
+    }
+
     protected function check_param_form(...$param) {
         $input = $this->input->post();
-        $response = array();
-        foreach ($param as $p) {
-            if (!isset($input[$p])) {
-                $response['message'] = 'error';
-                $response['data'] = null;
-                $response['error'] = 'wrong_parameter';
-                $this->response($response, 200);
-            }
-        }
-        return $input;
+        return $this->check_param($param, $input);
+    }
+
+    protected function check_param_get(...$param) {
+        $input = $this->input->get();
+        return $this->check_param($param, $input);
     }
 
     protected function get_response($callback) {
@@ -58,13 +58,14 @@ class BaseAPI extends REST_Controller {
         }
         $this->response($response, 200);
     }
+
     protected function get_user($id) {
-        if(!empty($id)){
-            $callback=$this->m_profil->retrieve($id);
+        if (!empty($id)) {
+            $callback = $this->m_profil->retrieve($id);
         }
         $this->get_response($callback);
     }
-    
+
     protected function upload_media($folder, $type = null, $filename = null) {
         $response = array();
         $root = $_SERVER['DOCUMENT_ROOT'];
@@ -116,4 +117,5 @@ class BaseAPI extends REST_Controller {
         }
         return $data;
     }
+
 }
