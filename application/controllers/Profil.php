@@ -36,8 +36,8 @@ class Profil extends BaseAPI {
     }
 
     public function postinganku_get() {
-        $input = $this->check_param('id');
-        $callback = $this->model->postinganku($input);
+        $input = $this->check_param('id', 'page');
+        $callback = $this->model->postinganku2($input);
         $this->get_response($callback);
     }
 
