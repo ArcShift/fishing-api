@@ -25,7 +25,7 @@ class M_posting extends CI_Model {
         }
     }
 
-    function pengaduan($data) {//IS ERROR NOT WORK?
+    function pengaduan($data) {//ERROR NOT WORK
         $response = array();
         $post = $this->input->post();
         $this->db->trans_start();
@@ -33,6 +33,7 @@ class M_posting extends CI_Model {
         $this->db->set('latitude', $post['latitude']);
         $this->db->set('longitude', $post['longitude']);
         $this->db->set('full_location_name', $post['full_name_location']);
+        $this->db->set('description', $post['description']);
         $this->db->insert('fisherman_complaintment');
         $id_post = $this->db->insert_id();
         foreach ($data as $d) {
