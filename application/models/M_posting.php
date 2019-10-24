@@ -18,18 +18,14 @@ class M_posting extends CI_Model {
         }
         $this->db->trans_complete();
         if ($this->db->trans_status() == FALSE) {
-            $response['message'] = "error";
-            $response['data'] = null;
-            $response['error'] = $this->db->error()['message'];
+            return false;
         } else {
-            $response['message'] = "success";
-            $response['data'] = null;
-            $response['error'] = null;
+            $this->db->where('id_fisherman', $post['id']);
+            return array('jumlah' => $this->db->count_all_results('fisherman_post'));
         }
-        return $response;
     }
 
-    function pengaduan($data) {
+    function pengaduan($data) {//IS ERROR NOT WORK?
         $response = array();
         $post = $this->input->post();
         $this->db->trans_start();
@@ -47,15 +43,11 @@ class M_posting extends CI_Model {
         }
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
-            $response['message'] = "error";
-            $response['data'] = null;
-            $response['error'] = $this->db->error()['message'];
+            return false;
         } else {
-            $response['message'] = "success";
-            $response['data'] = null;
-            $response['error'] = null;
+            $this->db->where('id_fisherman', $post['id_fisherman']);
+            return array('jumlah' => $this->db->count_all_results('fisherman_complaintment'));
         }
-        return $response;
     }
 
 }

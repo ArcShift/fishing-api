@@ -13,14 +13,14 @@ class Posting extends BaseAPI {
     public function index_post() {
         $this->check_param_form('id', 'caption');
         $data=$this->upload_multiple_media('post');
-        $response=$this->model->posting($data);
-        $this->response($response, 200);
+        $callback=$this->model->posting($data);
+        $this->get_response($callback);
     }
     public function pengaduan_post() {
         $this->check_param_form('id_fisherman', 'latitude','longitude', 'full_name_location');
         $data=$this->upload_multiple_media('pengaduan');
-        $response=$this->model->pengaduan($data);
-        $this->response($response, 200);
+        $callback=$this->model->pengaduan($data);
+        $this->get_response($callback);
     }
 
 }
