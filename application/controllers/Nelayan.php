@@ -2,52 +2,32 @@
 
 class Nelayan extends MY_Controller {
 
-    protected $title = "Nelayan";
+    protected $module = "nelayan";
 
     public function __construct() {
         parent::__construct();
         $this->load->model("m_nelayan", "model");
-//        $this->load->model("m_role");
-//        $this->data['roles'] = $this->m_role->read();
-//        $this->load->library('form_validation');
     }
 
     public function index() {
-        if ($this->input->post('read')) {//GOTO detail page
-            $this->session->set_flashdata("id", $this->input->post('read'));
-            redirect("/nelayan/detail");
-        }
-        $pagination = array(
-            "module" => "Nelayan",
-            "view" => "list", //list, thumnail
-            "page" => 1,
+        $config= array();
+        $config['filter'] = array(
+            array("title" => "name", "type" => "input"),
+            array("title" => "username", "type" => "input"),
+            array("title" => "email", "type" => "input"),
         );
-        if ($pagination["module"] == $this->session->userdata('pagination')["module"]) {
-            $pagination = $this->session->userdata('pagination');
-//            echo "update";
-        } else {
-//            echo "create";
-        }
-        if ($this->input->post('page')) {
-            $pagination['page'] = $this->input->post('page');
-        }else if ($this->input->post('cari')) {
-            $pagination['page'] = 1;
-        }
-        if ($this->input->post('view')) {
-            $pagination['view'] = $this->input->post('view');
-        }
-        $this->session->set_userdata('pagination', $pagination);
-        $this->data['pagination'] = $pagination;
-        $result = $this->model->reads($pagination['page']);
-        $this->data['dataCount'] = $result['count'];
-        $this->data['data'] = $result['data'];
-        if ($pagination['view'] === 'list') {
-            $this->subTitle = "List";
-            $this->render('nelayan/reads');
-        } else {
-            $this->subTitle = "Thumnail";
-            $this->render('nelayan/reads_thumnail');
-        }
+        $config['table'] = "fisherman n";
+        $config['column'] = array(
+            array("title" => "nama", "field" => "n.name"),
+            array("title" => "username", "field" => "n.username"),
+            array("title" => "email", "field" => "n.email"),
+        );
+//        $config['join'] = array(
+//            array("table" => "role r", "relation" => "u.idUserType = r.id"),
+//        );
+//        $this->db->where('r.id<>1');
+        $config['crud'] = array('read', 'delete');
+        parent::reads($config);
     }
 
     public function detail() {

@@ -2,7 +2,7 @@
 
 class Admin extends MY_Controller {
 
-    protected $title = "Admin";
+    protected $module = "admin";
 
     public function __construct() {
         parent::__construct();
@@ -13,29 +13,22 @@ class Admin extends MY_Controller {
     }
 
     public function index() {
-        $this->subTitle = "List";
-        if ($this->input->post('initDelete')) {
-            $this->session->set_flashdata('id', $this->input->post('initDelete'));
-            redirect('/admin/delete');
-        }
-        $pagination = array(
-            "module" => "Admin",
-            "page" => 1,
+        $config = array();
+        $config['filter'] = array(
+            array("title" => "username", "type" => "input"),
+            array("title" => "type", "type" => "select_query", "query" => "SELECT id AS k, nama AS v FROM role WHERE id<>1")
         );
-        if ($pagination["module"] == $this->session->userdata('pagination')["module"]) {
-            $pagination = $this->session->userdata('pagination');
-        }
-        if ($this->input->post('page')) {
-            $pagination['page'] = $this->input->post('page');
-        }else if ($this->input->post('cari')) {
-            $pagination['page'] = 1;
-        }
-        $this->session->set_userdata('pagination', $pagination);
-        $this->data['pagination'] = $pagination;
-        $result= $this->model->read($pagination['page']);
-        $this->data['dataCount'] = $result['count'];
-        $this->data['data1'] = $result['data'];
-        $this->render('admin/list');
+        $config['table'] = "user u";
+        $config['column'] = array(
+            array("title" => "username", "field" => "u.nama"),
+            array("title" => "type", "field" => "r.nama"),
+        );
+        $config['join'] = array(
+            array("table" => "role r", "relation" => "u.idUserType = r.id"),
+        );
+        $this->db->where('r.id<>1'); // hide super admin
+        $config['crud'] = array('create', 'update', 'delete');
+        parent::reads($config);
     }
 
     public function create() {
@@ -85,6 +78,35 @@ class Admin extends MY_Controller {
         }
         $this->data['data1'] = $this->model->detail($this->session->userId);
         $this->render('admin/detail');
+    }
+
+    public function edit() {
+        if (!empty($this->session->flashdata('id'))) {
+            $this->data['data'] = $this->model->detail($this->session->flashdata('id'));
+        } else if ($this->input->post('update')) {
+            if ($this->model->update()) {
+                $this->session->set_flashdata('msgSuccess', 'Berhasil mengupdate data');
+                redirect('admin');
+            } else {
+                $this->data['data'] = $this->model->detail($this->input->post('id'));
+            }
+        } else if ($this->input->post('changePass')) {
+            $this->form_validation->set_rules('newPass', 'Password Baru', 'required');
+            $this->form_validation->set_rules('confirmPass', 'Konfirmasi Password', 'required|matches[newPass]');
+            if ($this->form_validation->run()) {
+                if ($this->model->gantiPassword()) {
+                    $this->session->set_flashdata('msgSuccess', 'Password berhasil diganti');
+                    redirect('admin');
+                } else {
+                    $this->session->set_flashdata('msgError', 'Gagal mengganti password');
+                }
+            }
+            $this->data['data'] = $this->model->detail($this->input->post('id'));
+        } else {
+            redirect('admin');
+        }
+        $this->subTitle = "Edit";
+        $this->render('admin/edit');
     }
 
     public function delete() {

@@ -2,7 +2,7 @@
 
 class Peta extends MY_Controller {
 
-    protected $title = "Peta";
+    protected $module = "peta";
 
     public function __construct() {
         parent::__construct();

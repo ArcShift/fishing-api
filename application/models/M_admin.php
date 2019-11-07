@@ -2,24 +2,6 @@
 
 class M_admin extends CI_Model {
 
-    public function read($page) {
-        $result= array();
-        if ($this->input->post('username')) {
-            $this->db->like('u.nama', $this->input->post('username'));
-        }
-        if ($this->input->post('role')) {
-            $this->db->like('r.id', $this->input->post('role'));
-        }
-        $this->db->select("u.id, r.nama AS type, u.nama");
-        $this->db->join("role r", "u.idUserType = r.id");
-        $result['count']=$this->db->count_all_results("user u", FALSE);
-        $limit =$this->config->item('page_limit');
-        $offset = $limit*($page-1);
-        $this->db->limit($limit, $offset);
-        $result['data']=$this->db->get()->result_array();
-        return $result;
-    }
-
     public function create() {
         $post = $this->input->post();
         $data = array(
@@ -66,8 +48,13 @@ class M_admin extends CI_Model {
         $this->db->where("id", $this->input->post("id"));
         return $this->db->update("user");
     }
-
-    public function updateData() {
+    public function update() {//update
+        $this->db->set("nama", $this->input->post("nama"));
+        $this->db->set("idUserType", $this->input->post("type"));
+        $this->db->where("id", $this->input->post("id"));
+        return $this->db->update("user");
+    }
+    public function updateData() {//update profil
         $this->db->set("nama", $this->input->post("nama"));
         $this->db->where("id", $this->input->post("id"));
         return $this->db->update("user");

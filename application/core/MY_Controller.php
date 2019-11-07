@@ -2,46 +2,60 @@
 
 class MY_Controller extends CI_Controller {
 
-    protected $title = null;
+    protected $module = null;
     protected $subTitle = null;
     protected $data = array();
+    protected $aksesModule = array(
+        //User => nelayan
+        //Fish => ikan
+        //Gear => perlengkapan
+        //Finding => Peta/ pengaduan
+        //Catch => tangkapan
+//        "Super Admin" => array('dashboard', 'admin'),//Super Admin
+        "Super Admin" => array('dashboard', 'admin', 'nelayan', 'ikan', 'pengaduan', 'tangkapan'), //Test
+        "Admin Perikanan" => array('dashboard', 'nelayan', 'ikan', 'p', 'peta', 'tangkapan'), //Admin Perikanan
+        "Supervisor Bappeda" => array('dashboard', 'admin'), //Admin Perikanan
+        "Supervisor Perikanan" => array('dashboard', 'admin')//Admin Perikanan
+    );
 
     public function __construct() {
         parent::__construct();
-        if (!$this->session->has_userdata('user')) {
+        if (!$this->session->has_userdata('user')) {//cek login user
             redirect('login');
         }
-        $this->load->model("m_module", "module");
+        if (!in_array($this->module, $this->aksesModule[$this->session->userdata('role')])) {
+            die('no access');
+        }
         $this->load->model("base_model", "b_model");
     }
 
     protected function render($view) {
-        $this->data['title'] = $this->title;
+        $this->data['module'] = $this->module;
         $this->data['subTitle'] = $this->subTitle;
         $this->data['view'] = $view;
-        $this->data['module'] = $this->title;
+        $this->data['aksesModule'] = $this->aksesModule[$this->session->userdata('role')];
         $this->load->view('template/container', $this->data);
     }
 
-    protected function reads() {
+    protected function reads($config) {
         $this->subTitle = "List";
         if ($this->input->post('read')) {
             $this->session->set_flashdata('id', $this->input->post('read'));
-            redirect('/' . $this->title . '/detail');
+            redirect('/' . $this->module . '/detail');
         }
         if ($this->input->post('edit')) {
             $this->session->set_flashdata('id', $this->input->post('edit'));
-            redirect('/' . $this->title . '/edit');
+            redirect('/' . $this->module . '/edit');
         }
         if ($this->input->post('initDelete')) {
             $this->session->set_flashdata('id', $this->input->post('initDelete'));
-            redirect('/' . $this->title . '/delete');
+            redirect('/' . $this->module . '/delete');
         }
         $pagination = array(
-            "module" => $this->title,
+            "module" => $this->module,
             "page" => 1,
         );
-        if ($pagination["module"] == $this->session->userdata('pagination')["module"]) {
+        if ($this->module == $this->session->userdata('pagination')["module"]) {
             $pagination = $this->session->userdata('pagination');
         }
         if ($this->input->post('page')) {
@@ -49,9 +63,26 @@ class MY_Controller extends CI_Controller {
         } else if ($this->input->post('cari')) {
             $pagination['page'] = 1;
         }
+        if (isset($config['filter'])) {
+            for ($i = 0; $i < count($config['filter']); $i++) {
+                if($config['filter'][$i]['type']=='select_query'){
+                    $config['filter'][$i]['result']=$this->db->query($config['filter'][$i]['query'])->result_array();
+                }
+            }
+        }
+        
+        if (isset($config['filter_query'])) {
+            for ($i = 0; $i < count($config['filter_query']); $i++) {
+                $config['filter_query'][$i]['data'] = $this->db->query($config['filter_query'][$i]['query'])->result_array();
+            }
+            foreach ($config['filter_query'] as $k => $v) {
+                
+            }
+        }
         $this->session->set_userdata('pagination', $pagination);
         $this->data['pagination'] = $pagination;
-        $result = $this->b_model->reads($pagination['page'], $this->data);
+        $result = $this->b_model->reads($pagination['page'], $config);
+        $this->data['config'] = $config;
         $this->data['dataCount'] = $result['count'];
         $this->data['data'] = $result['data'];
         $this->render('template/reads');
