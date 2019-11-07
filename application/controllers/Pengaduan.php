@@ -25,20 +25,27 @@ class Pengaduan extends MY_Controller {
             array("title" => "longitude", "field" => "fc.longitude"),
             array("title" => "status", "field" => "fc.status"),
         );
-        $config['crud'] = array('read');
+        $config['crud'] = array('update');
         parent::reads($config);
     }
 
-    public function detail() {
-        if(empty($this->session->flashdata('id'))){
-            redirect($this->title);
+    public function edit() {
+        if ($this->input->post('save')) {
+            if ($this->model->edit()){
+                $this->session->set_flashdata('msgSuccess', 'Status berhasil diupdate');
+                redirect($this->module);
+            } else {
+                $this->session->set_flashdata('msgError', 'Status gagal diupdate');
+            }
+        }else if (empty($this->session->flashdata('id'))) {
+            redirect($this->module);
         }
-        $this->data['id']=$this->session->flashdata('id');
+        $this->data['id'] = $this->session->flashdata('id');
         $this->subTitle = 'Detail';
-        $result=  $this->model->read($this->data['id']);
+        $result = $this->model->read($this->data['id']);
         $this->data['dataLaporan'] = $result['main'];
         $this->data['dataFiles'] = $result['files'];
-        $this->render('pengaduan/read');
+        $this->render('pengaduan/edit');
     }
 
 }
