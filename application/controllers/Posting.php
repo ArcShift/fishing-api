@@ -22,5 +22,9 @@ class Posting extends BaseAPI {
         $callback=$this->model->pengaduan($data);
         $this->get_response($callback);
     }
+    public function fish_get() {
+        $callback=$this->model->ikan();
+        $this->get_response($callback);
+    }
 
 }

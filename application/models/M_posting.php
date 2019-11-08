@@ -51,4 +51,9 @@ class M_posting extends CI_Model {
         }
     }
 
+    function ikan() {
+        $this->db->select('id, name, about_fish');
+        return $this->db->get('fish')->result_array();
+    }
+
 }
