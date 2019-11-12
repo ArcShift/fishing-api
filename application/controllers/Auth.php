@@ -1,9 +1,6 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
-require_once(APPPATH . "controllers/BaseAPI.php");
-
-class Auth extends BaseAPI {
+class Auth extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -11,14 +8,14 @@ class Auth extends BaseAPI {
     }
 
     public function register_post() {
-        $input=$this->check_param_raw('name','username','email', 'password');
-        $id=$this->model->register($input);
+        $input = $this->check_param_raw('name', 'username', 'email', 'password');
+        $id = $this->model->register($input);
         $this->get_user($id);
     }
 
     public function login_post() {
-        $input=$this->check_param_raw('email', 'password');
-        $id=$this->model->login($input);
+        $input = $this->check_param_raw('email', 'password');
+        $id = $this->model->login($input);
         $this->get_user($id);
     }
 

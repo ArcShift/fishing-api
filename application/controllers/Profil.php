@@ -1,9 +1,6 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
-require_once(APPPATH . "controllers/BaseAPI.php");
-
-class Profil extends BaseAPI {
+class Profil extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
