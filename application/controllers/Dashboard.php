@@ -14,6 +14,7 @@ class Dashboard extends MY_Controller {
         $this->data['countFisherman'] = $this->model->countFisherman();
         $this->data['countFish'] = $this->model->countFish();
         $this->data['countPengaduan'] = $this->model->countPengaduan();
+        $this->data['countPengaduanTertangani'] = $this->model->countPengaduanTertangani();
         $this->render('dashboard');
     }
 

@@ -22,10 +22,6 @@ class Nelayan extends MY_Controller {
             array("title" => "username", "field" => "n.username"),
             array("title" => "email", "field" => "n.email"),
         );
-//        $config['join'] = array(
-//            array("table" => "role r", "relation" => "u.idUserType = r.id"),
-//        );
-//        $this->db->where('r.id<>1');
         $config['crud'] = array('read', 'delete');
         parent::reads($config);
     }
@@ -38,5 +34,7 @@ class Nelayan extends MY_Controller {
         $this->data['data'] = $this->model->read($this->session->flashdata('id'));
         $this->render('nelayan/read');
     }
-
+    public function delete() {
+        $this->render($this->module.'/delete');
+    }
 }
