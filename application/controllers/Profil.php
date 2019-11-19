@@ -38,4 +38,16 @@ class Profil extends MY_Controller {
         $this->get_response($callback);
     }
 
+    public function komentar_post() {
+        $input = $this->check_param_raw('id_fisherman', 'id_post', 'komentar');
+        $callback = $this->model->komentar($input);
+        $this->get_response($callback);
+    }
+
+    public function detail_post_get() {
+        $input = $this->check_param_get('id', 'page');
+        $callback = $this->model->detail_post($input);
+        $this->get_response($callback);
+    }
+
 }

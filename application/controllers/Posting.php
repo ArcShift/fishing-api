@@ -1,8 +1,5 @@
 <?php
 
-//defined('BASEPATH') OR exit('No direct script access allowed');
-//require_once(APPPATH . "controllers/BaseAPI.php");
-
 class Posting extends MY_Controller {
 
     public function __construct() {

@@ -121,5 +121,13 @@ class M_profil extends MY_Model {
         }
         return $data;
     }
-
+    public function komentar($input) {
+        $this->db->set('id_fisherman', $input['id_fisherman']);
+        $this->db->set('id_fisherman_post', $input['id_post']);
+        $this->db->set('comment', $input['komentar']);
+        return $this->db->insert('fisherman_post_comments');
+    }
+    public function detail_post($input) {
+        
+    }
 }
