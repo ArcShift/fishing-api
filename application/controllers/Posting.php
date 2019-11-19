@@ -38,9 +38,17 @@ class Posting extends MY_Controller {
         $callback = $this->model->detail($input);
         $this->get_response($callback);
     }
+
     public function riwayat_tangkapan_get() {
         $input = $this->check_param_get('id', 'page');
         $callback = $this->model->riwayat_tangkapan($input);
         $this->get_response($callback);
     }
+
+    public function detail_riwayat_tangkapan_get() {
+        $input = $this->check_param_get('id');
+        $callback = $this->model->detail_riwayat_tangkapan($input['id']);
+        $this->get_response($callback);
+    }
+
 }

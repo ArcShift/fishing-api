@@ -1,8 +1,9 @@
 <?php
 
 class M_posting extends MY_Model {
-    var $paging= 10;
-    
+
+    var $paging = 10;
+
     function posting($data) {
         $response = array();
         $post = $this->input->post();
@@ -87,22 +88,37 @@ class M_posting extends MY_Model {
         $this->db->where('id', $input['id']);
         $data = $this->db->get('fisherman_post')->row_array();
         if (empty($data)) {
-            return $data='no data';
+            return $data = 'no data';
         }
         $this->db->limit($paging, $paging * ($input['page'] - 1));
         $this->db->where('id_fisherman_post', $input['id']);
-        $data['komentar']=$this->db->get('fisherman_post_comments')->result_array();
+        $data['komentar'] = $this->db->get('fisherman_post_comments')->result_array();
         return $data;
     }
+
     function riwayat_tangkapan($input) {
         $this->db->where('id_fisherman', $input['id']);
         $this->db->limit($this->paging, $this->paging * ($input['page'] - 1));
         $data = $this->db->get('fisherman_log_catch_fish')->result_array();
         if (empty($data)) {
-            return $data='no data';
-        }else{
+            return $data = 'no data';
+        } else {
             return $data;
         }
+    }
+
+    function detail_riwayat_tangkapan($id) {
+        $this->db->where('id', $id);
+        $data = $this->db->get('fisherman_log_catch_fish')->row_array();
+        if (empty($data)) {
+            return $data = 'no data';
+        }
+        $this->db->where('id_fisherman_log_catch_fish', $id);
+        $data['files'] = $this->db->get('fisherman_log_catch_fish_files')->result_array();
+        for ($i = 0; $i < count($data['files']); $i++) {
+            $data['files'][$i]['url_file']= base_url('upload/tangkapan/').$data['files'][$i]['url_file'];
+        }
+        return $data;
     }
 
 }
