@@ -116,9 +116,20 @@ class M_posting extends MY_Model {
         $this->db->where('id_fisherman_log_catch_fish', $id);
         $data['files'] = $this->db->get('fisherman_log_catch_fish_files')->result_array();
         for ($i = 0; $i < count($data['files']); $i++) {
-            $data['files'][$i]['url_file']= base_url('upload/tangkapan/').$data['files'][$i]['url_file'];
+            $data['files'][$i]['url_file'] = base_url('upload/tangkapan/') . $data['files'][$i]['url_file'];
         }
         return $data;
+    }
+
+    function get_pengaduan($input) {
+        $this->db->where('id_fisherman', $input['id']);
+        $this->db->limit($this->paging, $this->paging * ($input['page'] - 1));
+        $data = $this->db->get('fisherman_complaintment')->result_array();
+        if (empty($data)) {
+            return $data = 'no data';
+        } else {
+            return $data;
+        }
     }
 
 }

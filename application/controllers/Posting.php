@@ -50,5 +50,10 @@ class Posting extends MY_Controller {
         $callback = $this->model->detail_riwayat_tangkapan($input['id']);
         $this->get_response($callback);
     }
+    public function pengaduan_get() {
+        $input = $this->check_param_get('id', 'page');
+        $callback = $this->model->get_pengaduan($input);
+        $this->get_response($callback);
+    }
 
 }
