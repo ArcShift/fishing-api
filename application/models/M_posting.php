@@ -132,4 +132,18 @@ class M_posting extends MY_Model {
         }
     }
 
+    function detail_pengaduan($id) {
+        $this->db->where('id', $id);
+        $data = $this->db->get('fisherman_complaintment')->row_array();
+        if (empty($data)) {
+            return $data = 'no data';
+        }
+        $this->db->where('id_fisherman_complaintment', $id);
+        $data['files'] = $this->db->get('fisherman_complaintment_files')->result_array();
+        for ($i = 0; $i < count($data['files']); $i++) {
+            $data['files'][$i]['url_file'] = base_url('upload/pengaduan/') . $data['files'][$i]['url_file'];
+        }
+        return $data;
+    }
+
 }
