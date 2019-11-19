@@ -1,7 +1,8 @@
 <?php
 
 class M_posting extends MY_Model {
-
+    var $paging= 10;
+    
     function posting($data) {
         $response = array();
         $post = $this->input->post();
@@ -92,6 +93,16 @@ class M_posting extends MY_Model {
         $this->db->where('id_fisherman_post', $input['id']);
         $data['komentar']=$this->db->get('fisherman_post_comments')->result_array();
         return $data;
+    }
+    function riwayat_tangkapan($input) {
+        $this->db->where('id_fisherman', $input['id']);
+        $this->db->limit($this->paging, $this->paging * ($input['page'] - 1));
+        $data = $this->db->get('fisherman_log_catch_fish')->result_array();
+        if (empty($data)) {
+            return $data='no data';
+        }else{
+            return $data;
+        }
     }
 
 }
