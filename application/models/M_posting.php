@@ -81,4 +81,17 @@ class M_posting extends MY_Model {
         return true;
     }
 
+    function detail($input) {
+        $paging = 10;
+        $this->db->where('id', $input['id']);
+        $data = $this->db->get('fisherman_post')->row_array();
+        if (empty($data)) {
+            return $data='no data';
+        }
+        $this->db->limit($paging, $paging * ($input['page'] - 1));
+        $this->db->where('id_fisherman_post', $input['id']);
+        $data['komentar']=$this->db->get('fisherman_post_comments')->result_array();
+        return $data;
+    }
+
 }

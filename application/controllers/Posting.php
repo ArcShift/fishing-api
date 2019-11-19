@@ -32,4 +32,11 @@ class Posting extends MY_Controller {
         $callback = $this->model->tangkapan($data);
         $this->get_response($callback);
     }
+
+    public function detail_get() {
+        $input = $this->check_param_get('id', 'page');
+        $callback = $this->model->detail($input);
+        $this->get_response($callback);
+    }
+
 }
