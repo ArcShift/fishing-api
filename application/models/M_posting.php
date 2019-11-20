@@ -88,7 +88,7 @@ class M_posting extends MY_Model {
         $this->db->where('id', $input['id']);
         $data = $this->db->get('fisherman_post')->row_array();
         if (empty($data)) {
-            return $data = 'no data';
+            return 'no_data';
         }
         $this->db->limit($paging, $paging * ($input['page'] - 1));
         $this->db->where('id_fisherman_post', $input['id']);
@@ -101,7 +101,7 @@ class M_posting extends MY_Model {
         $this->db->limit($this->paging, $this->paging * ($input['page'] - 1));
         $data = $this->db->get('fisherman_log_catch_fish')->result_array();
         if (empty($data)) {
-            return $data = 'no data';
+            return 'no_data';
         } else {
             return $data;
         }
@@ -111,7 +111,7 @@ class M_posting extends MY_Model {
         $this->db->where('id', $id);
         $data = $this->db->get('fisherman_log_catch_fish')->row_array();
         if (empty($data)) {
-            return $data = 'no data';
+            return 'no_data';
         }
         $this->db->where('id_fisherman_log_catch_fish', $id);
         $data['files'] = $this->db->get('fisherman_log_catch_fish_files')->result_array();
@@ -126,7 +126,7 @@ class M_posting extends MY_Model {
         $this->db->limit($this->paging, $this->paging * ($input['page'] - 1));
         $data = $this->db->get('fisherman_complaintment')->result_array();
         if (empty($data)) {
-            return $data = 'no data';
+            return 'no_data';
         } else {
             return $data;
         }
@@ -136,7 +136,7 @@ class M_posting extends MY_Model {
         $this->db->where('id', $id);
         $data = $this->db->get('fisherman_complaintment')->row_array();
         if (empty($data)) {
-            return $data = 'no data';
+            return 'no_data';
         }
         $this->db->where('id_fisherman_complaintment', $id);
         $data['files'] = $this->db->get('fisherman_complaintment_files')->result_array();
@@ -144,6 +144,31 @@ class M_posting extends MY_Model {
             $data['files'][$i]['url_file'] = base_url('upload/pengaduan/') . $data['files'][$i]['url_file'];
         }
         return $data;
+    }
+
+    function like($input) {
+        $this->db->where('id_fisherman', $input['id_fisherman']);
+        $this->db->where('id_fisherman_post', $input['id_post']);
+        $data = $this->db->get('fisherman_post_likes')->row_array();
+        if (empty($data)) {
+            $this->db->set('id_fisherman', $input['id_fisherman']);
+            $this->db->set('id_fisherman_post', $input['id_post']);
+            $result = $this->db->insert('fisherman_post_likes');
+            if ($result != false) {
+                return 'like';
+            } else {
+                return false;
+            }
+        } else {
+            $this->db->where('id_fisherman', $input['id_fisherman']);
+            $this->db->where('id_fisherman_post', $input['id_post']);
+            $result = $this->db->delete('fisherman_post_likes');
+            if ($result != false) {
+                return 'unlike';
+            } else {
+                return false;
+            }
+        }
     }
 
 }
