@@ -36,6 +36,7 @@ class M_posting extends MY_Model {
         $this->db->set('longitude', $post['longitude']);
         $this->db->set('full_location_name', $post['full_name_location']);
         $this->db->set('description', $post['description']);
+        $this->db->set('title', $post['title']);
         $this->db->insert('fisherman_complaintment');
         $id_post = $this->db->insert_id();
         foreach ($data as $d) {
