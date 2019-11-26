@@ -111,23 +111,24 @@ class M_profil extends MY_Model {
         $data['post'] = $result;
         for ($i = 0; $i < count($data['post']); $i++) {
             $data['post'][$i]['files'] = array();
-            $data['post'][$i]['like'] = array();
+            $this->db->select('id_fisherman, created_at');
+            $this->db->where('id_fisherman_post', $data['post'][$i]['id']);
+            $data['post'][$i]['like'] = $this->db->get('fisherman_post_likes')->result_array();
             $this->db->where('id_fisherman_post', $data['post'][$i]['id']);
             $result = $this->db->get('fisherman_post_files')->result_array();
             foreach ($result as $r) {
-                array_push($data['post'][$i]['files'], base_url('upload/post/') .$r['url_file']);
+                array_push($data['post'][$i]['files'], base_url('upload/post/') . $r['url_file']);
             }
             //TODO: LIST LIKE
         }
         return $data;
     }
+
     public function komentar($input) {
         $this->db->set('id_fisherman', $input['id_fisherman']);
         $this->db->set('id_fisherman_post', $input['id_post']);
         $this->db->set('comment', $input['komentar']);
         return $this->db->insert('fisherman_post_comments');
     }
-    public function detail_post($input) {
-        
-    }
+
 }
