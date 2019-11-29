@@ -90,8 +90,11 @@ class M_posting extends MY_Model {
         if (empty($data)) {
             return 'no_data';
         }
+        $this->db->select('fpc.*, f.name, CONCAT("' . base_url('upload/profil/') . '", f.url_photo) AS photo');
+        $this->db->join('fisherman f', 'f.id=fpc.id_fisherman');
         $this->db->where('id_fisherman_post', $input['id']);
-        $data['komentar'] = $this->db->get('fisherman_post_comments')->result_array();
+        $data['komentar'] = $this->db->get('fisherman_post_comments fpc')->result_array();
+//        die ($this->db->last_query());
         return $data;
     }
 
@@ -168,6 +171,28 @@ class M_posting extends MY_Model {
                 return false;
             }
         }
+    }
+
+    function follow($input) {//follow/unfollow
+        $this->db->where('id_fisherman', $input['id_fisherman']);
+        $this->db->where('id_follower', $input['id_follower']);
+        $result = $this->db->get('fisherman_follow')->row_array();
+        if (empty($result)) {
+            $this->db->set('id_fisherman', $input['id_fisherman']);
+            $this->db->set('id_follower', $input['id_follower']);
+            $result = $this->db->insert('fisherman_follow');
+            if ($result != false) {
+                return 'follow';
+            }
+        } else {
+            $this->db->where('id_fisherman', $input['id_fisherman']);
+            $this->db->where('id_follower', $input['id_follower']);
+            $result = $this->db->delete('fisherman_follow');
+            if ($result != false) {
+                return 'unfollow';
+            }
+        }
+        return false;
     }
 
 }

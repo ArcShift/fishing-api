@@ -69,4 +69,10 @@ class Posting extends MY_Controller {
         $this->get_response($callback);
     }
 
+    public function follow_post() {
+        $input = $this->check_param_raw('id_fisherman', 'id_follower');
+        $callback = $this->model->follow($input);
+        $this->get_response($callback);
+    }
+
 }
