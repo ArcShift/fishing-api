@@ -99,9 +99,11 @@ class M_posting extends MY_Model {
     }
 
     function riwayat_tangkapan($input) {
-        $this->db->where('id_fisherman', $input['id']);
+        $this->db->select('c.*, f.name AS fish_name');
+        $this->db->where('c.id_fisherman', $input['id']);
         $this->db->limit($this->paging, $this->paging * ($input['page'] - 1));
-        $data = $this->db->get('fisherman_log_catch_fish')->result_array();
+        $this->db->join('fish f', 'f.id=c.id_fish');
+        $data = $this->db->get('fisherman_log_catch_fish c')->result_array();
         if (empty($data)) {
             return 'no_data';
         } else {
@@ -110,8 +112,10 @@ class M_posting extends MY_Model {
     }
 
     function detail_riwayat_tangkapan($id) {
-        $this->db->where('id', $id);
-        $data = $this->db->get('fisherman_log_catch_fish')->row_array();
+        $this->db->select('c.*, f.name AS fish_name');
+        $this->db->where('c.id', $id);
+        $this->db->join('fish f', 'f.id=c.id_fish');
+        $data = $this->db->get('fisherman_log_catch_fish c')->row_array();
         if (empty($data)) {
             return 'no_data';
         }
