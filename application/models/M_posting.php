@@ -90,7 +90,7 @@ class M_posting extends MY_Model {
         if (empty($data)) {
             return 'no_data';
         }
-        $this->db->select('fpc.*, f.name, CONCAT("' . base_url('upload/profil/') . '", f.url_photo) AS photo');
+        $this->db->select('fpc.*, f.username, CONCAT("' . base_url('upload/profil/') . '", f.url_photo) AS photo');
         $this->db->join('fisherman f', 'f.id=fpc.id_fisherman');
         $this->db->where('id_fisherman_post', $input['id']);
         $data['komentar'] = $this->db->get('fisherman_post_comments fpc')->result_array();
