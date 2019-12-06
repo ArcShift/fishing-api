@@ -128,7 +128,12 @@ class M_profil extends MY_Model {
         $this->db->set('id_fisherman', $input['id_fisherman']);
         $this->db->set('id_fisherman_post', $input['id_post']);
         $this->db->set('comment', $input['komentar']);
-        return $this->db->insert('fisherman_post_comments');
+        if ($this->db->insert('fisherman_post_comments')) {
+            $this->db->where('id', $this->db->insert_id());
+            return $this->db->get('fisherman_post_comments')->row_array();
+        } else {
+            return false;
+        }
     }
 
 }
