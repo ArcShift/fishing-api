@@ -9,7 +9,9 @@ class M_pengumuman extends MY_Model {
 
     function detail($id) {
         $this->db->where('id', $id);
-        return $this->db->get('announcement')->result_array();
+        $r=$this->db->get('announcement')->row_array();
+        $r['url_img']=base_url('upload/tangkapan/') .$r['url_img'];
+        return $r;
     }
 
 }
