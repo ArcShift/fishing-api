@@ -8,4 +8,9 @@ class Pengumuman extends MY_Controller{
         $callback = $this->model->all();
         $this->get_response($callback);
     }
+    public function detail_get() {
+        $input = $this->check_param_get('id_announcement');
+        $callback = $this->model->detail($input['id_announcement']);
+        $this->get_response($callback);
+    }
 }
