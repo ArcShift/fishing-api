@@ -24,4 +24,10 @@ class Pengumuman extends MY_Controller{
         $callback = $this->model->get_statistik($input['id_fisherman']);
         $this->get_response($callback);
     }
+
+    public function beranda_get(){
+        $input = $this->check_param_get('id_fisherman');
+        $callback = $this->model->get_beranda($input['id_fisherman']);
+        $this->get_response($callback);
+    }
 }

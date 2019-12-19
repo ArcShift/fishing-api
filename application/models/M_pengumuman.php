@@ -27,7 +27,6 @@ class M_pengumuman extends MY_Model {
     }
 
     function get_statistik($id){
-
         $query =  $this->db->query("SELECT sum(total_weight) as total_tangkapan, max(total_weight) as max_tangkapan 
             FROM fisherman_log_catch_fish
             WHERE id_fisherman = ?
@@ -59,6 +58,46 @@ class M_pengumuman extends MY_Model {
         ", $id)->row_array()['created_at'];
         $query['tgl_register'] = date('d M Y', strtotime($query['tgl_register']));
 
+        return $query;
+    }
+
+    function get_beranda($id){
+        $id_param =  $this->db->query("SELECT id_follower FROM fisherman_follow WHERE id_fisherman = ?", $id)->result_array();      
+
+        foreach($id_param as $r) $param[] = $r['id_follower'];
+
+        $param = array();
+        $x = '';
+        foreach($param as $r) $x .= "?,";
+        $x .= '?';
+
+        $param[] = $id;
+
+        $query = $this->db->query("SELECT fp.* 
+            FROM fisherman_post fp
+            WHERE fp.id_fisherman IN ($x) ORDER BY fp.id DESC
+        ",$param)->result_array();
+        
+        $x=0;
+        foreach($query as $r){
+            $path = $this->db->query("SELECT url_file FROM fisherman_post_files
+                WHERE id_fisherman_post = ?
+            ", $r['id'])->result_array();
+
+            foreach($path as $p) $query[$x]['path_file'][] =$this->config->item('upload_path').'/post/'.$p['url_file'];
+
+            $query[$x]['total_like'] = $this->db->query("SELECT count(id_fisherman) as total FROM fisherman_post_likes
+                WHERE id_fisherman_post = ?
+            ", $r['id'])->row_array()['total'];
+
+            $query[$x]['comment'] = $this->db->query("SELECT fpc.*, f.name as name_fisherman FROM fisherman_post_comments fpc
+                LEFT JOIN fisherman f ON f.id = fpc.id_fisherman
+                WHERE fpc.id_fisherman_post = ?
+            ", $r['id'])->result_array();
+
+            $x++;
+        }
+        
         return $query;
     }
 
