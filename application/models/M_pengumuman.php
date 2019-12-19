@@ -16,4 +16,15 @@ class M_pengumuman extends MY_Model {
         return $r;
     }
 
+    function get_library($path){
+        $query =  $this->db->query("SELECT * FROM document")->result_array();
+
+        $x = 0;
+        foreach($query as $r){
+            $query[$x]['url'] = $path.$r['url'];
+            $x++;
+        }
+        return $query;
+    }
+
 }

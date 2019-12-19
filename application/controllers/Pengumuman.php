@@ -13,4 +13,10 @@ class Pengumuman extends MY_Controller{
         $callback = $this->model->detail($input['id_announcement']);
         $this->get_response($callback);
     }
+
+    public function library_get(){
+        $path =  $this->config->item('path_dokumen');
+        $callback = $this->model->get_library($path);
+        $this->get_response($callback);
+    }
 }
