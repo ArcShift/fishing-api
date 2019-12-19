@@ -84,7 +84,7 @@ class M_pengumuman extends MY_Model {
                 WHERE id_fisherman_post = ?
             ", $r['id'])->result_array();
 
-            foreach($path as $p) $query[$x]['path_file'][] =$this->config->item('upload_path').'/post/'.$p['url_file'];
+            foreach($path as $p) $query[$x]['path_file'][] =$this->config->item('base_url').'/post/'.$p['url_file'];
 
             $query[$x]['total_like'] = $this->db->query("SELECT count(id_fisherman) as total FROM fisherman_post_likes
                 WHERE id_fisherman_post = ?
@@ -97,7 +97,7 @@ class M_pengumuman extends MY_Model {
 
             $x++;
         }
-        
+
         return $query;
     }
 
