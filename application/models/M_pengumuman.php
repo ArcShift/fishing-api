@@ -16,12 +16,11 @@ class M_pengumuman extends MY_Model {
         return $r;
     }
 
-    function get_library($path){
+    function get_library(){
         $query =  $this->db->query("SELECT * FROM document")->result_array();
-
         $x = 0;
         foreach($query as $r){
-            $query[$x]['url'] = $path.$r['url'];
+            $query[$x]['url'] = base_url('upload/dokumen').$r['url'];
             $x++;
         }
         return $query;

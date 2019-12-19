@@ -15,8 +15,7 @@ class Pengumuman extends MY_Controller{
     }
 
     public function library_get(){
-        $path =  $this->config->item('path_dokumen');
-        $callback = $this->model->get_library($path);
+        $callback = $this->model->get_library();
         $this->get_response($callback);
     }
 
