@@ -27,10 +27,6 @@ class M_pengumuman extends MY_Model {
     }
 
     function get_statistik($id){
-        $query =  $this->db->query("SELECT created_at 
-            FROM fisherman
-            WHERE id = ?
-        ", $id)->row_array();
 
         $query =  $this->db->query("SELECT sum(total_weight) as total_tangkapan, max(total_weight) as max_tangkapan 
             FROM fisherman_log_catch_fish
@@ -56,6 +52,12 @@ class M_pengumuman extends MY_Model {
             FROM fisherman_complaintment
             WHERE id_fisherman = ? AND `status` = 'selesai'
         ", $id)->row_array()['total_pengaduan'];
+
+        $query['tgl_register'] =  $this->db->query("SELECT created_at 
+            FROM fisherman
+            WHERE id = ?
+        ", $id)->row_array()['created_at'];
+        $query['tgl_register'] = date('d M Y', strtotime($query['tgl_register']));
 
         return $query;
     }
