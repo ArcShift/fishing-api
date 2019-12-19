@@ -19,4 +19,10 @@ class Pengumuman extends MY_Controller{
         $callback = $this->model->get_library($path);
         $this->get_response($callback);
     }
+
+    public function statistik_get(){
+        $input = $this->check_param_get('id_fisherman');
+        $callback = $this->model->get_statistik($input['id_fisherman']);
+        $this->get_response($callback);
+    }
 }
