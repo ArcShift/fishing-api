@@ -4,19 +4,19 @@ class Auth extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('m_auth', 'model');
+        $this->load->model('m_profil', 'model');
     }
 
     public function register_post() {
         $input = $this->check_param_raw('name', 'username', 'email', 'password');
-        $id = $this->model->register($input);
-        $this->get_user($id);
+        $callback = $this->model->register($input);
+        $this->get_response($callback);
     }
 
     public function login_post() {
         $input = $this->check_param_raw('email', 'password');
-        $id = $this->model->login($input);
-        $this->get_user($id);
+        $callback = $this->model->login($input);
+        $this->get_response($callback);
     }
 
     public function token_get() {
