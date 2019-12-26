@@ -120,7 +120,9 @@ class M_profil extends MY_Model {
         if (empty($result))
             return 'no_data';
         $result = $result[0];
-        $result['url_photo'] = base_url('upload/profil/') . $result['url_photo'];
+        if (!empty($result['url_photo'])) {
+            $result['url_photo'] = base_url('upload/profil/') . $result['url_photo'];
+        }
         $data['user'] = $result;
         $this->db->select('id, caption, created_at');
         $this->db->where('id_fisherman', $data['user']['id']);
