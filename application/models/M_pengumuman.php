@@ -73,7 +73,7 @@ class M_pengumuman extends MY_Model {
 
         $param[] = $id;
 
-        $query = $this->db->query("SELECT fp.*, f.username as uname
+        $query = $this->db->query("SELECT fp.*, f.username as uname, f.url_photo
             FROM fisherman_post fp
             LEFT JOIN fisherman f ON f.id = fp.id_fisherman
             WHERE fp.id_fisherman IN ($x) ORDER BY fp.id DESC
@@ -81,6 +81,8 @@ class M_pengumuman extends MY_Model {
         
         $x=0;
         foreach($query as $r){
+            $query[$x]['url_photo'] = isset($r['url_photo']) ? $this->config->item('base_url').'/upload/profil/'.$r['url_photo'] : '';
+
             $path = $this->db->query("SELECT url_file FROM fisherman_post_files
                 WHERE id_fisherman_post = ?
             ", $r['id'])->result_array();
@@ -91,7 +93,7 @@ class M_pengumuman extends MY_Model {
                 WHERE id_fisherman_post = ?
             ", $r['id'])->row_array()['total'];
 
-            $query[$x]['likes'][] = $this->db->query("SELECT f.id as id_fisherman, f.username, f.url_photo FROM fisherman_post_likes fpl
+            $query[$x]['likes'][] = $this->db->query("SELECT f.id as id_fisherman, f.username as uname, f.url_photo FROM fisherman_post_likes fpl
                 LEFT JOIN fisherman f ON f.id = fpl.id_fisherman
                 WHERE fpl.id_fisherman_post = ?
             ", $r['id'])->result_array();
