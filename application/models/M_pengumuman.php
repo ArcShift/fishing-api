@@ -93,18 +93,15 @@ class M_pengumuman extends MY_Model {
                 WHERE id_fisherman_post = ?
             ", $r['id'])->row_array()['total'];
 
-            $query[$x]['likes'][] = $this->db->query("SELECT f.id as id_fisherman, f.username as uname, f.url_photo FROM fisherman_post_likes fpl
+            $query[$x]['likes'] = $this->db->query("SELECT f.id as id_fisherman, f.username as uname, f.url_photo FROM fisherman_post_likes fpl
                 LEFT JOIN fisherman f ON f.id = fpl.id_fisherman
                 WHERE fpl.id_fisherman_post = ?
             ", $r['id'])->result_array();
 
             $i = 0;
             foreach($query[$x]['likes'] as $r){
-                $z = 0;
-                foreach($r as $s){
-                    $query[$x]['likes'][$i][$z]['url_photo'] = isset($s['url_photo']) ? $this->config->item('base_url').'/upload/profil/'.$s['url_photo'] : '';
-                    $z++;
-                }
+                $query[$x]['likes'][$i]['url_photo'] = isset($r['url_photo']) ? $this->config->item('base_url').'/upload/profil/'.$r['url_photo'] : '';
+                
                 $i++;
             }
 
