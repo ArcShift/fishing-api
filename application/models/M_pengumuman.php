@@ -90,7 +90,12 @@ class M_pengumuman extends MY_Model {
                 WHERE id_fisherman_post = ?
             ", $r['id'])->row_array()['total'];
 
-            $query[$x]['comment'] = $this->db->query("SELECT fpc.*, f.name as fisherman_name FROM fisherman_post_comments fpc
+            $query[$x]['likes'][] = $this->db->query("SELECT f.id as id_fisherman, f.username, f.url_photo FROM fisherman_post_likes fpl
+                LEFT JOIN fisherman f ON f.id = fpl.id_fisherman
+                WHERE fpl.id_fisherman_post = ?
+            ", $r['id'])->result_array();
+
+            $query[$x]['comment'] = $this->db->query("SELECT fpc.*, f.username as uname, f.url_photo FROM fisherman_post_comments fpc
                 LEFT JOIN fisherman f ON f.id = fpc.id_fisherman
                 WHERE fpc.id_fisherman_post = ?
             ", $r['id'])->result_array();
