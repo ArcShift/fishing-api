@@ -73,8 +73,9 @@ class M_pengumuman extends MY_Model {
 
         $param[] = $id;
 
-        $query = $this->db->query("SELECT fp.* 
+        $query = $this->db->query("SELECT fp.*, f.username as uname
             FROM fisherman_post fp
+            LEFT JOIN fisherman f ON f.id = fp.id_fisherman
             WHERE fp.id_fisherman IN ($x) ORDER BY fp.id DESC
         ",$param)->result_array();
         
@@ -95,10 +96,26 @@ class M_pengumuman extends MY_Model {
                 WHERE fpl.id_fisherman_post = ?
             ", $r['id'])->result_array();
 
+            $i = 0;
+            foreach($query[$x]['likes'] as $r){
+                $z = 0;
+                foreach($r as $s){
+                    $query[$x]['likes'][$i][$z]['url_photo'] = isset($s['url_photo']) ? $this->config->item('base_url').'/upload/profil/'.$s['url_photo'] : '';
+                    $z++;
+                }
+                $i++;
+            }
+
             $query[$x]['comment'] = $this->db->query("SELECT fpc.*, f.username as uname, f.url_photo FROM fisherman_post_comments fpc
                 LEFT JOIN fisherman f ON f.id = fpc.id_fisherman
                 WHERE fpc.id_fisherman_post = ?
             ", $r['id'])->result_array();
+
+            $i = 0;
+            foreach($query[$x]['comment'] as $r){
+                $query[$x]['comment'][$i]['url_photo'] = isset($r['url_photo']) ? $this->config->item('base_url').'/upload/profil/'.$r['url_photo'] : '';
+                $i++;
+            }           
 
             $x++;
         }
