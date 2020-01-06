@@ -75,4 +75,10 @@ class Posting extends MY_Controller {
         $this->get_response($callback);
     }
 
+    public function explore_get() {//paging?
+        $input = $this->check_param_get('id_fisherman');
+        $callback = $this->model->explore($input);
+        $this->get_response($callback);
+    }
+
 }

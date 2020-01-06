@@ -207,12 +207,15 @@ class M_posting extends MY_Model {
         $data = $this->db->get('fisherman_post p')->result_array();
         if (empty($data)) {
             return 'no_data';
-        }else{
-            foreach ($data as $k=>$d) {
-//                $this->db->select('url_file');
+        } else {
+            foreach ($data as $k => $d) {
+                $data[$k]['file'] = array();
+                $this->db->select('url_file');
                 $this->db->where('id_fisherman_post', $d['id']);
-                $r= $this->db->get('fisherman_post_files')->result_array();
-                $data[$k]['file']= $r;
+                $result = $this->db->get('fisherman_post_files')->result_array();
+                foreach ($result as $r) {
+                    array_push($data[$k]['file'], $r['url_file']);
+                }
             }
             return $data;
         }
