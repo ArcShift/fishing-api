@@ -214,7 +214,7 @@ class M_posting extends MY_Model {
                 $this->db->where('id_fisherman_post', $d['id']);
                 $result = $this->db->get('fisherman_post_files')->result_array();
                 foreach ($result as $r) {
-                    array_push($data[$k]['file'], $r['url_file']);
+                    array_push($data[$k]['file'], base_url('upload/post/'). $r['url_file']);
                 }
             }
             return $data;
