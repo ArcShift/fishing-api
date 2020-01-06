@@ -201,8 +201,8 @@ class M_posting extends MY_Model {
 
     function explore($input) {
         $this->db->select('p.*');
-        $this->db->where('f.id_follower', $input['id_fisherman']);
-        $this->db->join('fisherman_follow f', 'f.id_fisherman=p.id_fisherman');
+//        $this->db->where('f.id_follower', $input['id_fisherman']);
+//        $this->db->join('fisherman_follow f', 'f.id_fisherman=p.id_fisherman');
         $this->db->order_by('created_at', 'DESC');
         $data = $this->db->get('fisherman_post p')->result_array();
         if (empty($data)) {
