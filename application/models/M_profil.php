@@ -158,4 +158,11 @@ class M_profil extends MY_Model {
         }
     }
 
+    function search($input) {
+        $this->db->select('id, name, username');
+        $this->db->or_like('name', $input['keyword']);
+        $this->db->or_like('username', $input['keyword']);
+        return $this->db->get('fisherman')->result_array();
+    }
+
 }

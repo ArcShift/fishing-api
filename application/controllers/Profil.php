@@ -44,4 +44,10 @@ class Profil extends MY_Controller {
         $this->get_response($callback);
     }
 
+    public function search_get() {
+        $input = $this->check_param_get('keyword');
+        $callback = $this->model->search($input);
+        $this->get_response($callback);
+    }
+
 }
