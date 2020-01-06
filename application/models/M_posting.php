@@ -200,7 +200,7 @@ class M_posting extends MY_Model {
     }
 
     function explore($input) {
-        $this->db->select('p.*, f.name, f.url_photo');
+        $this->db->select('p.*, f.username, f.url_photo');
         $this->db->order_by('p.created_at', 'DESC');
         $this->db->join('fisherman f', 'f.id = p.id_fisherman');
         $data = $this->db->get('fisherman_post p')->result_array();
