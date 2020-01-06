@@ -200,22 +200,27 @@ class M_posting extends MY_Model {
     }
 
     function explore($input) {
-        $this->db->select('p.*');
-//        $this->db->where('f.id_follower', $input['id_fisherman']);
-//        $this->db->join('fisherman_follow f', 'f.id_fisherman=p.id_fisherman');
-        $this->db->order_by('created_at', 'DESC');
+        $this->db->select('p.*, f.name, f.url_photo');
+        $this->db->order_by('p.created_at', 'DESC');
+        $this->db->join('fisherman f', 'f.id = p.id_fisherman');
         $data = $this->db->get('fisherman_post p')->result_array();
         if (empty($data)) {
             return 'no_data';
         } else {
             foreach ($data as $k => $d) {
+                if (!empty($d['url_photo'])) {
+                    $data[$k]['url_photo'] = base_url('upload/profil/') . $d['url_photo'];
+                }
                 $data[$k]['file'] = array();
                 $this->db->select('url_file');
                 $this->db->where('id_fisherman_post', $d['id']);
                 $result = $this->db->get('fisherman_post_files')->result_array();
                 foreach ($result as $r) {
-                    array_push($data[$k]['file'], base_url('upload/post/'). $r['url_file']);
+                    array_push($data[$k]['file'], base_url('upload/post/') . $r['url_file']);
                 }
+                $this->db->select('id_fisherman, created_at');
+                $this->db->where('id_fisherman_post', $d['id']);
+                $data[$k]['like'] = $this->db->get('fisherman_post_likes')->result_array();
             }
             return $data;
         }
