@@ -112,7 +112,7 @@ class M_posting extends MY_Model {
     }
 
     function detail_riwayat_tangkapan($id) {
-        $this->db->select('c.*, f.name AS fish_name');
+        $this->db->select('c.*, f.name AS fish_name, f.about_fish');
         $this->db->where('c.id', $id);
         $this->db->join('fish f', 'f.id=c.id_fish');
         $data = $this->db->get('fisherman_log_catch_fish c')->row_array();
@@ -197,6 +197,25 @@ class M_posting extends MY_Model {
             }
         }
         return false;
+    }
+
+    function explore($input) {
+        $this->db->select('p.*');
+        $this->db->where('f.id_follower', $input['id_fisherman']);
+        $this->db->join('fisherman_follow f', 'f.id_fisherman=p.id_fisherman');
+        $this->db->order_by('created_at', 'DESC');
+        $data = $this->db->get('fisherman_post p')->result_array();
+        if (empty($data)) {
+            return 'no_data';
+        }else{
+            foreach ($data as $k=>$d) {
+//                $this->db->select('url_file');
+                $this->db->where('id_fisherman_post', $d['id']);
+                $r= $this->db->get('fisherman_post_files')->result_array();
+                $data[$k]['file']= $r;
+            }
+            return $data;
+        }
     }
 
 }
