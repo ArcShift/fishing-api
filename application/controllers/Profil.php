@@ -33,8 +33,8 @@ class Profil extends MY_Controller {
     }
 
     public function postinganku_get() {
-        $input = $this->check_param_get('id', 'page');
-        $callback = $this->model->postinganku2($input);
+        $input = $this->check_param_get('id');
+        $callback = $this->model->postinganku($input);
         $this->get_response($callback);
     }
 
