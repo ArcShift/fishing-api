@@ -121,10 +121,16 @@ class M_profil extends MY_Model {
     }
 
     function search($input) {
-        $this->db->select('id, name, username');
+        $this->db->select('id, name, username, url_photo');
         $this->db->or_like('name', $input['keyword']);
         $this->db->or_like('username', $input['keyword']);
-        return $this->db->get('fisherman')->result_array();
+        $result = $this->db->get('fisherman')->result_array();
+        foreach ($result as $k => $r) {
+            if (!empty($r['url_photo'])) {
+                $result[$k]['url_photo'] = base_url('upload/profil/') . $r['url_photo'];
+            }
+        }
+        return $result;
     }
 
 }
