@@ -133,4 +133,18 @@ class M_profil extends MY_Model {
         return $result;
     }
 
+    function detail_search($input) {
+        $this->db->select('f.name, f.username, f.email, f.phone_number, f.bio, f.url_photo, f.created_at, ff.id_follower AS follow');
+        $this->db->where('f.id', $input['id_fisherman']);
+        $this->db->join('fisherman_follow ff', 'ff.id_fisherman= f.id AND ff.id_follower=' . $input['id_user'], 'LEFT');
+        $r = $this->db->get('fisherman f')->row_array();
+        if (!empty($r)) {
+            $r['url_photo']= empty($r['url_photo'])?:base_url('upload/profil/') . $r['url_photo'];
+            $r['follow']= empty($r['follow'])?false:true;
+            return $r;
+        } else {
+            return false;
+        }
+    }
+
 }

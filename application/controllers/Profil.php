@@ -50,4 +50,10 @@ class Profil extends MY_Controller {
         $this->get_response($callback);
     }
 
+    public function detail_search_get() {
+        $input = $this->check_param_get('id_fisherman', 'id_user');
+        $callback = $this->model->detail_search($input);
+        $this->get_response($callback);
+    }
+
 }
