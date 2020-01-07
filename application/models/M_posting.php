@@ -201,7 +201,8 @@ class M_posting extends MY_Model {
 
     function explore($input) {
         $this->db->select('p.*, f.username, f.url_photo');
-        $this->db->order_by('p.created_at', 'DESC');
+        $this->db->where('p.id_fisherman!=',$input['id_fisherman']);
+        $this->db->order_by('RAND()');
         $this->db->join('fisherman f', 'f.id = p.id_fisherman');
         $data = $this->db->get('fisherman_post p')->result_array();
         if (empty($data)) {
