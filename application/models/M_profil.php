@@ -139,7 +139,7 @@ class M_profil extends MY_Model {
         $this->db->join('fisherman_follow ff', 'ff.id_fisherman= f.id AND ff.id_follower=' . $input['id_user'], 'LEFT');
         $r = $this->db->get('fisherman f')->row_array();
         if (!empty($r)) {
-            $r['url_photo']= empty($r['url_photo'])?:base_url('upload/profil/') . $r['url_photo'];
+            $r['url_photo']= empty($r['url_photo'])?null:base_url('upload/profil/') . $r['url_photo'];
             $r['follow']= empty($r['follow'])?false:true;
             return $r;
         } else {
