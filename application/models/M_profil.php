@@ -142,7 +142,7 @@ class M_profil extends MY_Model {
             $r['url_photo'] = empty($r['url_photo']) ? null : base_url('upload/profil/') . $r['url_photo'];
             $r['follow'] = empty($r['follow']) ? false : true;
             $this->db->select('id, caption, created_at');
-            $this->db->where('id', $input['id_fisherman']);
+            $this->db->where('id_fisherman', $input['id_fisherman']);
             $r['post'] = $this->db->get('fisherman_post')->result_array();
             for ($i = 0; $i < count($r['post']); $i++) {
                 $r['post'][$i]['files'] = array();
