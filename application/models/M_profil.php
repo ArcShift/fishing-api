@@ -139,8 +139,22 @@ class M_profil extends MY_Model {
         $this->db->join('fisherman_follow ff', 'ff.id_fisherman= f.id AND ff.id_follower=' . $input['id_user'], 'LEFT');
         $r = $this->db->get('fisherman f')->row_array();
         if (!empty($r)) {
-            $r['url_photo']= empty($r['url_photo'])?null:base_url('upload/profil/') . $r['url_photo'];
-            $r['follow']= empty($r['follow'])?false:true;
+            $r['url_photo'] = empty($r['url_photo']) ? null : base_url('upload/profil/') . $r['url_photo'];
+            $r['follow'] = empty($r['follow']) ? false : true;
+            $this->db->select('id, caption, created_at');
+            $this->db->where('id', $input['id_fisherman']);
+            $r['post'] = $this->db->get('fisherman_post')->result_array();
+            for ($i = 0; $i < count($r['post']); $i++) {
+                $r['post'][$i]['files'] = array();
+                $this->db->where('id_fisherman_post', $r['post'][$i]['id']);
+                $result = $this->db->get('fisherman_post_files')->result_array();
+                $this->db->select('id_fisherman, created_at');
+                $this->db->where('id_fisherman_post', $r['post'][$i]['id']);
+                $r['post'][$i]['like'] = $this->db->get('fisherman_post_likes')->result_array();
+                foreach ($result as $r1) {
+                    array_push($r['post'][$i]['files'], base_url('upload/post/') . $r1['url_file']);
+                }
+            }
             return $r;
         } else {
             return false;
