@@ -161,4 +161,25 @@ class M_profil extends MY_Model {
         }
     }
 
+    function list_follow($input) {
+        $data = array();
+        $this->db->select('f.id, f.name, f.username, f.email, f.url_photo, f2.id_follower AS following');
+        $this->db->where('ff.id_fisherman', $input['id_user']);
+        $this->db->join('fisherman f', 'f.id=ff.id_follower');
+        $this->db->join('fisherman_follow f2', 'f2.id_follower=' . $input['id_user'] . ' AND f2.id_fisherman= f.id', 'LEFT');
+        $data['follower'] = $this->db->get('fisherman_follow ff')->result_array();
+        foreach ($data['follower'] as $k => $v) {
+            $data['follower'][$k]['url_photo'] = empty($v['url_photo']) ? null : base_url('upload/profil/') . $v['url_photo'];
+            $data['follower'][$k]['following'] = empty($v['following']) ? false : true;
+        }
+        $this->db->select('f.id, f.name, f.username, f.email, f.url_photo');
+        $this->db->where('ff.id_follower', $input['id_user']);
+        $this->db->join('fisherman f', 'f.id=ff.id_follower');
+        $data['following'] = $this->db->get('fisherman_follow ff')->result_array();
+        foreach ($data['following'] as $k => $v) {
+            $data['following'][$k]['url_photo'] = empty($v['url_photo']) ? null : base_url('upload/profil/') . $v['url_photo'];
+        }
+        return $data;
+    }
+
 }
