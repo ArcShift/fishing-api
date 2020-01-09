@@ -174,7 +174,7 @@ class M_profil extends MY_Model {
         }
         $this->db->select('f.id, f.name, f.username, f.email, f.url_photo');
         $this->db->where('ff.id_follower', $input['id_user']);
-        $this->db->join('fisherman f', 'f.id=ff.id_follower');
+        $this->db->join('fisherman f', 'f.id=ff.id_fisherman');
         $data['following'] = $this->db->get('fisherman_follow ff')->result_array();
         foreach ($data['following'] as $k => $v) {
             $data['following'][$k]['url_photo'] = empty($v['url_photo']) ? null : base_url('upload/profil/') . $v['url_photo'];
