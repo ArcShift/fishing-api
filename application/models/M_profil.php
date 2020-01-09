@@ -58,17 +58,16 @@ class M_profil extends MY_Model {
     }
 
     public function retrieve($id) {
-        $this->db->select('f.id, f.name, f.username, f.email, f.phone_number,f.bio, f.url_photo, SUM(f.id) AS post, SUM(f1.id_follower) AS following, SUM(f1.id_fisherman) AS follower, f.created_at, f.updated_at');
+        $this->db->select('f.id, f.name, f.username, f.email, f.phone_number,f.bio, f.url_photo, f.created_at, f.updated_at');
         $this->db->where('f.id', $id);
         if ($this->db->count_all_results('fisherman f', false) == 1) {
-            $this->db->join('fisherman_post fp', 'fp.id_fisherman=f.id', 'LEFT');
-            $this->db->join('fisherman_follow f1', 'f1.id_follower=f.id', 'LEFT');
-            $this->db->join('fisherman_follow f2', 'f2.id_fisherman=f.id', 'LEFT');
             $result = $this->db->get()->row_array();
-            $result['post']= empty($result['post'])?0:$result['post'];
-            $result['following']= empty($result['following'])?0:$result['following'];
-            $result['follower']= empty($result['follower'])?0:$result['follower'];
-            $result['url_photo'] = empty($result['url_photo']) ? null : base_url('upload/profil/') . $result['url_photo'];
+            $this->db->where('id_fisherman', $id);
+            $result['post'] = $this->db->count_all_results('fisherman_post');
+            $this->db->where('id_fisherman', $id);
+            $result['follower'] = $this->db->count_all_results('fisherman_follow');
+            $this->db->where('id_follower', $id);
+            $result['following'] = $this->db->count_all_results('fisherman_follow');
             return $result;
         } else {
             return 'no_data';
