@@ -62,6 +62,7 @@ class M_profil extends MY_Model {
         $this->db->where('f.id', $id);
         if ($this->db->count_all_results('fisherman f', false) == 1) {
             $result = $this->db->get()->row_array();
+            $result['url_photo'] = empty($result['url_photo']) ? null : base_url('upload/profil/') . $result['url_photo'];
             $this->db->where('id_fisherman', $id);
             $result['post'] = $this->db->count_all_results('fisherman_post');
             $this->db->where('id_fisherman', $id);
