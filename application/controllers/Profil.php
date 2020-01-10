@@ -55,8 +55,15 @@ class Profil extends MY_Controller {
         $callback = $this->model->detail_search($input);
         $this->get_response($callback);
     }
+
     public function list_follow_get() {
         $input = $this->check_param_get('id_user');
+        $callback = $this->model->list_follow($input);
+        $this->get_response($callback);
+    }
+
+    public function fisherman_follow_get() {
+        $input = $this->check_param_get('id_user', 'id_fisherman');
         $callback = $this->model->list_follow($input);
         $this->get_response($callback);
     }

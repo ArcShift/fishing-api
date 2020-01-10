@@ -168,8 +168,9 @@ class M_profil extends MY_Model {
 
     function list_follow($input) {
         $data = array();
+        $user= isset($input['id_fisherman'])?$input['id_fisherman']:$input['id_user'];
         $this->db->select('f.id, f.name, f.username, f.email, f.url_photo, f2.id_follower AS following');
-        $this->db->where('ff.id_fisherman', $input['id_user']);
+        $this->db->where('ff.id_fisherman', $user);
         $this->db->join('fisherman f', 'f.id=ff.id_follower');
         $this->db->join('fisherman_follow f2', 'f2.id_follower=' . $input['id_user'] . ' AND f2.id_fisherman= f.id', 'LEFT');
         $data['follower'] = $this->db->get('fisherman_follow ff')->result_array();
@@ -178,7 +179,7 @@ class M_profil extends MY_Model {
             $data['follower'][$k]['following'] = empty($v['following']) ? false : true;
         }
         $this->db->select('f.id, f.name, f.username, f.email, f.url_photo');
-        $this->db->where('ff.id_follower', $input['id_user']);
+        $this->db->where('ff.id_follower', $user);
         $this->db->join('fisherman f', 'f.id=ff.id_fisherman');
         $data['following'] = $this->db->get('fisherman_follow ff')->result_array();
         foreach ($data['following'] as $k => $v) {
