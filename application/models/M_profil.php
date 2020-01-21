@@ -15,6 +15,22 @@ class M_profil extends MY_Model {
         }
     }
 
+    function set_validation($email, $gen) {
+        $this->db->set('validation', $gen);
+        $this->db->where('email', $email);
+        $this->db->where("validation<>'VALIDATED'");
+        $this->db->or_where('validation IS NULL');
+        if($this->db->update('fisherman')){
+            if($this->db->affected_rows()==1){
+                return true;
+            }else{
+                $this->session->set_flashdata('error', 'Email tidak ada atau sudah diverifikasi');
+                return false;
+            }
+        }
+        return false;
+    }
+
     function login($input) {
         $this->db->select('id');
         $this->db->where("(email ='" . $input['email'] . "' OR username='" . $input['email'] . "')");
@@ -158,7 +174,7 @@ class M_profil extends MY_Model {
                 $this->db->where('id_fisherman_post', $r['post'][$i]['id']);
                 $r['post'][$i]['like'] = $this->db->get('fisherman_post_likes')->result_array();
                 foreach ($result as $r1) {
-                    array_push($r['post'][$i]['files'], base_url('upload/post/') . $r1['url_file']);    
+                    array_push($r['post'][$i]['files'], base_url('upload/post/') . $r1['url_file']);
                 }
             }
             return $r;
@@ -169,7 +185,7 @@ class M_profil extends MY_Model {
 
     function list_follow($input) {
         $data = array();
-        $user= isset($input['id_fisherman'])?$input['id_fisherman']:$input['id_user'];
+        $user = isset($input['id_fisherman']) ? $input['id_fisherman'] : $input['id_user'];
         $this->db->select('f.id, f.name, f.username, f.email, f.url_photo, f2.id_follower AS following');
         $this->db->where('ff.id_fisherman', $user);
         $this->db->join('fisherman f', 'f.id=ff.id_follower');
@@ -181,7 +197,7 @@ class M_profil extends MY_Model {
         }
         $this->db->select('f.id, f.name, f.username, f.email, f.url_photo, f2.id_follower AS following');
         $this->db->where('ff.id_follower', $user);
-        $this->db->join('fisherman f', 'f.id=ff.id_fisherman');  
+        $this->db->join('fisherman f', 'f.id=ff.id_fisherman');
         $this->db->join('fisherman_follow f2', 'f2.id_follower=' . $input['id_user'] . ' AND f2.id_fisherman= f.id', 'LEFT');
         $data['following'] = $this->db->get('fisherman_follow ff')->result_array();
         foreach ($data['following'] as $k => $v) {

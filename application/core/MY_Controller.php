@@ -8,6 +8,7 @@ class MY_Controller extends REST_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('m_profil');
+        $this->load->library('session');
     }
 
     protected function check_param($param, $input) {
@@ -54,6 +55,9 @@ class MY_Controller extends REST_Controller {
             $response['message'] = "error";
             $response['data'] = null;
             $response['error'] = $this->db->error()['message'];
+            if(empty($response['error'])){
+                $response['error']= $this->session->flashdata('error');
+            }
         }
         $this->response($response, 200);
     }
