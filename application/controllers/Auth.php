@@ -11,7 +11,7 @@ class Auth extends MY_Controller {
         $input = $this->check_param_raw('name', 'username', 'email', 'password');
         $callback = $this->model->register($input);
         if ($callback) {
-            $this->resend_mail_post($input['email']);
+            $this->send_mail($input['email']);
         }
         $this->get_response($callback);
     }
@@ -24,6 +24,11 @@ class Auth extends MY_Controller {
 
     public function resend_mail_post() {
         $input = $this->check_param_raw('email');
+        $this->send_mail($input['email']);
+        $this->get_response('email_send');
+    }
+
+    function send_mail($email) {
         //GENERATE RANDOM STRING
         $length = 10;
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -32,7 +37,7 @@ class Auth extends MY_Controller {
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
-        if (!$this->model->set_validation($input['email'], $randomString)) {
+        if (!$this->model->set_validation($email, $randomString)) {
             $this->get_response(false);
         }
         //SEND MAIL
@@ -52,15 +57,13 @@ class Auth extends MY_Controller {
         ];
         $this->load->library('email', $config);
         $this->email->from('knightarcher1@gmail.com', 'google.com');
-        $this->email->to($input['email']); // Ganti dengan email tujuan
+        $this->email->to($email); // Ganti dengan email tujuan
 //        $this->email->attach('https://masrud.com/content/images/20181215150137-codeigniter-smtp-gmail.png');
         $this->email->subject('Validasi User Fisherman');
         $this->email->message($content);
-        if ($this->email->send()) {
-            $this->get_response('email_send');
-        } else {
-            $this->get_response(null);
+        if (!$this->email->send()) {
             $this->session->set_flashdata('error', 'email_gagal');
+            $this->get_response(null);
             print_r($this->email->print_debugger());
         }
     }

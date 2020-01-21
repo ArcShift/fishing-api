@@ -1,7 +1,5 @@
 <?php
 
-//require_once(APPPATH . "models/Base_model.php");
-
 class M_profil extends MY_Model {
 
     private $table = "fisherman";
