@@ -39,6 +39,15 @@ class M_profil extends MY_Model {
             return 'no_data';
         }
     }
+    function login_google($email) {
+        $this->db->where('email', $email);
+        $this->db->where('validation', 'VALIDATED');
+        if ($this->db->count_all_results('fisherman', false) == 1) {
+            return $this->retrieve($this->db->get()->row_array()['id']);
+        } else {
+            return 'no_data';
+        }
+    }
 
     function edit($input) {
         $this->db->set('name', $input['name']);
