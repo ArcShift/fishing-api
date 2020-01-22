@@ -18,10 +18,10 @@ class M_profil extends MY_Model {
         $this->db->where('email', $email);
         $this->db->where("validation<>'VALIDATED'");
         $this->db->or_where('validation IS NULL');
-        if($this->db->update('fisherman')){
-            if($this->db->affected_rows()==1){
+        if ($this->db->update('fisherman')) {
+            if ($this->db->affected_rows() == 1) {
                 return true;
-            }else{
+            } else {
                 $this->session->set_flashdata('error', 'Email tidak ada atau sudah diverifikasi');
                 return false;
             }
@@ -34,14 +34,20 @@ class M_profil extends MY_Model {
         $this->db->where("(email ='" . $input['email'] . "' OR username='" . $input['email'] . "')");
         $this->db->where('password', md5($input['password']));
         if ($this->db->count_all_results('fisherman', false) == 1) {
-            return $this->retrieve($this->db->get()->row_array()['id']);
+            $data = $this->retrieve($this->db->get()->row_array()['id']);
+            if ($data['validation'] == 'VALIDATED') {
+                return $data;
+            }else{
+                return 'email_not_registered';
+            }
         } else {
             return 'no_data';
         }
     }
+
     function login_google($email) {
         $this->db->where('email', $email);
-        $this->db->where('validation', 'VALIDATED');
+//        $this->db->where('validation', 'VALIDATED');
         if ($this->db->count_all_results('fisherman', false) == 1) {
             return $this->retrieve($this->db->get()->row_array()['id']);
         } else {
@@ -81,10 +87,15 @@ class M_profil extends MY_Model {
     }
 
     public function retrieve($id) {
-        $this->db->select('f.id, f.name, f.username, f.email, f.phone_number,f.bio, f.url_photo, f.created_at, f.updated_at');
+        $this->db->select('f.id, f.name, f.username, f.email, f.phone_number,f.bio, f.url_photo, f.validation, f.password, f.created_at, f.updated_at');
         $this->db->where('f.id', $id);
         if ($this->db->count_all_results('fisherman f', false) == 1) {
             $result = $this->db->get()->row_array();
+            if(empty($result['password'])){
+                $result['password']='unset';
+            }else{
+                $result['password']='set';
+            }
             $result['url_photo'] = empty($result['url_photo']) ? null : base_url('upload/profil/') . $result['url_photo'];
             $this->db->where('id_fisherman', $id);
             $result['post'] = $this->db->count_all_results('fisherman_post');
