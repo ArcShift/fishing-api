@@ -8,7 +8,7 @@ class Profil extends MY_Controller {
     }
 
     public function edit_post() {//unfinish
-        $input = $this->check_param_raw('id', 'name', 'bio', 'phone_number');
+        $input = $this->check_param_raw('id', 'username', 'name', 'bio', 'phone_number');
         $callback = $this->model->edit($input);
         $this->get_response($callback);
     }

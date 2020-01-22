@@ -56,6 +56,7 @@ class M_profil extends MY_Model {
     }
 
     function edit($input) {
+        $this->db->set('username', $input['username']);
         $this->db->set('name', $input['name']);
         $this->db->set('bio', $input['bio']);
         $this->db->set('phone_number', $input['phone_number']);
