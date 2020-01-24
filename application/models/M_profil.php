@@ -38,7 +38,7 @@ class M_profil extends MY_Model {
             if ($data['validation'] == 'VALIDATED') {
                 return $data;
             }else{
-                $this->session->set_flashdata('error','email_not_registered');              
+                $this->session->set_flashdata('error','email_not_validated');              
                 return false;
             }
         } else {
