@@ -38,7 +38,8 @@ class M_profil extends MY_Model {
             if ($data['validation'] == 'VALIDATED') {
                 return $data;
             }else{
-                return 'email_not_registered';
+                $this->session->set_flashdata('error','email_not_registered');              
+                return false;
             }
         } else {
             return 'no_data';
@@ -47,7 +48,6 @@ class M_profil extends MY_Model {
 
     function login_google($email) {
         $this->db->where('email', $email);
-//        $this->db->where('validation', 'VALIDATED');
         if ($this->db->count_all_results('fisherman', false) == 1) {
             return $this->retrieve($this->db->get()->row_array()['id']);
         } else {
