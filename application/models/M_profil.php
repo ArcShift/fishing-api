@@ -37,8 +37,8 @@ class M_profil extends MY_Model {
             $data = $this->retrieve($this->db->get()->row_array()['id']);
             if ($data['validation'] == 'VALIDATED') {
                 return $data;
-            }else{
-                $this->session->set_flashdata('error','email_not_validated');              
+            } else {
+                $this->session->set_flashdata('error', 'email_not_validated');
                 return false;
             }
         } else {
@@ -49,7 +49,15 @@ class M_profil extends MY_Model {
     function login_google($email) {
         $this->db->where('email', $email);
         if ($this->db->count_all_results('fisherman', false) == 1) {
-            return $this->retrieve($this->db->get()->row_array()['id']);
+            $data = $this->retrieve($this->db->get()->row_array()['id']);
+            if($data['validation']!='VALIDATED'){
+                $this->db->set('validation', 'VALIDATED');
+                $this->db->where('id', $data['id']);
+                if(!$this->db->update('fisherman')){
+                    return false;
+                }
+            }
+            return $this->retrieve($data['id']);
         } else {
             return 'no_data';
         }
@@ -69,6 +77,13 @@ class M_profil extends MY_Model {
     }
 
     function update_pass($input) {
+        $this->db->where('password', md5($input['password_lama']));
+        $this->db->where('id', $input['id']);
+        $data= $this->db->get('fisherman')->row_array();
+        if(empty($data)){
+            $this->session->set_flashdata('error','password tidak sesuai');
+            return false;
+        }
         $this->db->set('password', md5($input['password']));
         return $this->update($input);
     }
@@ -92,10 +107,10 @@ class M_profil extends MY_Model {
         $this->db->where('f.id', $id);
         if ($this->db->count_all_results('fisherman f', false) == 1) {
             $result = $this->db->get()->row_array();
-            if(empty($result['password'])){
-                $result['password']='unset';
-            }else{
-                $result['password']='set';
+            if (empty($result['password'])) {
+                $result['password'] = 'unset';
+            } else {
+                $result['password'] = 'set';
             }
             $result['url_photo'] = empty($result['url_photo']) ? null : base_url('upload/profil/') . $result['url_photo'];
             $this->db->where('id_fisherman', $id);

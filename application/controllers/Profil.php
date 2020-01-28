@@ -27,7 +27,7 @@ class Profil extends MY_Controller {
     }
 
     public function ubah_password_post() {
-        $input = $this->check_param_raw('id', 'password');
+        $input = $this->check_param_raw('id', 'password', 'password_lama');
         $callback = $this->model->update_pass($input);
         $this->get_response($callback);
     }
