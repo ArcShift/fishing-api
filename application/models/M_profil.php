@@ -50,10 +50,10 @@ class M_profil extends MY_Model {
         $this->db->where('email', $email);
         if ($this->db->count_all_results('fisherman', false) == 1) {
             $data = $this->retrieve($this->db->get()->row_array()['id']);
-            if($data['validation']!='VALIDATED'){
+            if ($data['validation'] != 'VALIDATED') {
                 $this->db->set('validation', 'VALIDATED');
                 $this->db->where('id', $data['id']);
-                if(!$this->db->update('fisherman')){
+                if (!$this->db->update('fisherman')) {
                     return false;
                 }
             }
@@ -76,12 +76,17 @@ class M_profil extends MY_Model {
         return $this->update($input);
     }
 
+    function new_pass($input) {
+        $this->db->set('password', md5($input['password']));
+        return $this->update($input);
+    }
+
     function update_pass($input) {
         $this->db->where('password', md5($input['password_lama']));
         $this->db->where('id', $input['id']);
-        $data= $this->db->get('fisherman')->row_array();
-        if(empty($data)){
-            $this->session->set_flashdata('error','password tidak sesuai');
+        $data = $this->db->get('fisherman')->row_array();
+        if (empty($data)) {
+            $this->session->set_flashdata('error', 'password tidak sesuai');
             return false;
         }
         $this->db->set('password', md5($input['password']));

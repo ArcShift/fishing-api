@@ -32,6 +32,12 @@ class Profil extends MY_Controller {
         $this->get_response($callback);
     }
 
+    public function password_baru_post() {
+        $input = $this->check_param_raw('id', 'password');
+        $callback = $this->model->new_pass($input);
+        $this->get_response($callback);
+    }
+
     public function postinganku_get() {
         $input = $this->check_param_get('id');
         $callback = $this->model->postinganku($input);
