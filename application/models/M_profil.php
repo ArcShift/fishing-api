@@ -5,7 +5,11 @@ class M_profil extends MY_Model {
     private $table = "fisherman";
 
     function register($input) {
-        $input['password'] = md5($input['password']);
+        if (empty($input['password'])) {
+            $input['password'] = null;
+        } else {
+            $input['password'] = md5($input['password']);
+        }
         if ($this->db->insert('fisherman', $input)) {
             return $this->retrieve($this->db->insert_id());
         } else {

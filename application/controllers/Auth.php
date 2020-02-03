@@ -21,9 +21,10 @@ class Auth extends MY_Controller {
         $callback = $this->model->login($input);
         $this->get_response($callback);
     }
+
     public function login_google_post() {
         $input = $this->check_param_raw('email');
-        $callback=$this->model->login_google($input['email']);
+        $callback = $this->model->login_google($input['email']);
         $this->get_response($callback);
     }
 
