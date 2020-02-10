@@ -73,5 +73,10 @@ class Profil extends MY_Controller {
         $callback = $this->model->list_follow($input);
         $this->get_response($callback);
     }
+    public function update_token_post(){
+        $input = $this->check_param_raw('id_user', 'mobile_token');
+        $callback = $this->model->update_token($input);
+        $this->get_response($callback);
+    }
 
 }

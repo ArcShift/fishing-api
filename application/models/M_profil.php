@@ -42,7 +42,7 @@ class M_profil extends MY_Model {
             if ($data['validation'] == 'VALIDATED') {
                 return $data;
             } else {
-                $this->session->set_flashdata('error', 'email_not_validated');
+                $this->session->set_flashdata('error', 'email_not_validated');  
                 return false;
             }
         } else {
@@ -112,7 +112,7 @@ class M_profil extends MY_Model {
     }
 
     public function retrieve($id) {
-        $this->db->select('f.id, f.name, f.username, f.email, f.phone_number,f.bio, f.url_photo, f.validation, f.password, f.created_at, f.updated_at');
+        $this->db->select('f.id, f.name, f.username, f.email, f.phone_number,f.bio, f.url_photo, f.validation, f.password, f.mobile_token, f.created_at, f.updated_at');
         $this->db->where('f.id', $id);
         if ($this->db->count_all_results('fisherman f', false) == 1) {
             $result = $this->db->get()->row_array();
@@ -249,5 +249,14 @@ class M_profil extends MY_Model {
         }
         return $data;
     }
-
+    
+    function update_token($input) {
+        $this->db->set('mobile_token',$input['mobile_token']);
+        $this->db->where('id', $input['id_user']);
+        if($this->db->update('fisherman')){
+            return $this->retrieve($input['id_user']);
+        }else{
+            return false;
+        }
+    }
 }
