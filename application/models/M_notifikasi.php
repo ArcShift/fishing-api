@@ -14,6 +14,7 @@ class M_notifikasi extends MY_Model {
         } else {
             foreach ($result as $k => $r) {
                 $title = $r['title'];
+                $r['url_file'] = base_url('upload/pengaduan/') . $r['url_file'];
                 $r['title'] = 'Pengaduan anda ' . $r['message'];
                 $r['message'] = 'Pengaduan anda "' . $title . '" ' . $r['message'];
                 $result[$k] = $r;
