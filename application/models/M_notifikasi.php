@@ -23,4 +23,14 @@ class M_notifikasi extends MY_Model {
         }
     }
 
+    function komentar($input) {
+        $this->db->where('id', $input['id_post']);
+        $result=$this->db->get('fisherman_post')->row_array();
+        $this->db->set('type', 'comment');
+        $this->db->set('id_fisherman_notif', $result['id_fisherman']);
+        $this->db->set('id_fisherman_action', $input['id_fisherman']);
+        $this->db->set('id_post', $input['id_post']);
+        $this->db->insert('fisherman_notification_social_media');
+    }
+
 }

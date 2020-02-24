@@ -5,6 +5,7 @@ class Profil extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('m_profil', 'model');
+        $this->load->model('m_notifikasi');
     }
 
     public function edit_post() {//unfinish
@@ -47,7 +48,7 @@ class Profil extends MY_Controller {
     public function komentar_post() {
         $input = $this->check_param_raw('id_fisherman', 'id_post', 'komentar');
         $callback = $this->model->komentar($input);
-        is_array($callback)?$this->model->notif_komentar($input):null;
+        is_array($callback)?$this->m_notifikasi->komentar($input):null;
         $this->get_response($callback);
     }
 
