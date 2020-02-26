@@ -94,7 +94,7 @@ class M_notifikasi extends MY_Model {
             }
             $result[$k] = $r;
         }
-        return $result;
+        return empty($result)?'no_data':$result;
     }
 
     private function send_notification($userId, $title, $message) {
