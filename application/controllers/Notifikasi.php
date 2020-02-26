@@ -13,4 +13,10 @@ class Notifikasi extends MY_Controller {
         $this->get_response($callback);
     }
 
+    function sosial_media_get() {
+        $input = $this->check_param_get('id_user');
+        $callback = $this->model->sosial_media($input);
+        $this->get_response($callback);
+    }
+
 }

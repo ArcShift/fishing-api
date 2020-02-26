@@ -5,6 +5,7 @@ class Posting extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('m_posting', 'model');
+        $this->load->model('m_notifikasi');
     }
 
     public function index_post() {
@@ -66,12 +67,14 @@ class Posting extends MY_Controller {
     public function like_post() {
         $input = $this->check_param_raw('id_post', 'id_fisherman');
         $callback = $this->model->like($input);
+        $callback == 'like' ? $this->m_notifikasi->like($input) : null;
         $this->get_response($callback);
     }
 
     public function follow_post() {
         $input = $this->check_param_raw('id_fisherman', 'id_follower');
         $callback = $this->model->follow($input);
+        $callback == 'follow' ? $this->m_notifikasi->follow($input) : null;
         $this->get_response($callback);
     }
 

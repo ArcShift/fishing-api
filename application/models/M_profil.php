@@ -181,21 +181,6 @@ class M_profil extends MY_Model {
         }
     }
 
-    function notif_komentar($input) {
-        $this->db->select('f.id, f.username');
-        $this->db->where('fp.id', $input['id_post']);
-        $this->db->join('fisherman f', 'f.id=fp.id_fisherman');
-        $result = $this->db->get('fisherman_post fp')->row_array();
-        $title= $result['username'] . ' mengomentari status anda';
-        $message= $result['username'] . ' :"' . $input['komentar'] . '"';
-        $this->send_notification($result['id'], $title, $message);
-        $this->db->set('id_post',$input['id_post']);
-        $this->db->set('id_fisherman',$input['id_fisherman']);
-        $this->db->set('title',$title);
-        $this->db->set('message',$message);
-        $this->db->insert('fisherman_notification_social_media');
-    }
-
     function search($input) {
         $this->db->select('id, name, username, url_photo');
         $this->db->or_like('name', $input['keyword']);

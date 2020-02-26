@@ -48,7 +48,7 @@ class Profil extends MY_Controller {
     public function komentar_post() {
         $input = $this->check_param_raw('id_fisherman', 'id_post', 'komentar');
         $callback = $this->model->komentar($input);
-        is_array($callback)?$this->m_notifikasi->komentar($input):null;
+        $notif = is_array($callback) ? $this->m_notifikasi->komentar($input) : null;
         $this->get_response($callback);
     }
 
