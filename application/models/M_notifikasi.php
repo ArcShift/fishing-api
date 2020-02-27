@@ -66,13 +66,13 @@ class M_notifikasi extends MY_Model {
     }
 
     function follow($input) {
-        $this->db->where('id', $input['id_follower']);
-        $result = $this->db->get('fisherman f')->row_array();
         $this->db->where('type', 'follow'); //CHECK REDUNDANT
-        $this->db->where('id_fisherman_notif', $result['id']);
-        $this->db->where('id_fisherman_action', $input['id_fisherman']);
+        $this->db->where('id_fisherman_notif', $input['id_fisherman']);
+        $this->db->where('id_fisherman_action', $input['id_follower']);
         $count = $this->db->count_all_results('fisherman_notification_social_media');
         if ($count == 0) {
+            $this->db->where('id', $input['id_follower']);
+            $result = $this->db->get('fisherman f')->row_array();
             $title = $result['username'] . ' mengikuti anda';
             $this->send_notification($input['id_fisherman'], $title, '');
             $this->db->set('type', 'follow');
