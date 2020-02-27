@@ -28,8 +28,10 @@ class M_notifikasi extends MY_Model {
         $this->db->where('fp.id', $input['id_post']);
         $this->db->join('fisherman f', 'f.id=fp.id_fisherman');
         $result = $this->db->get('fisherman_post fp')->row_array();
-        $title = $result['username'] . ' mengomentari status anda';
-        $message = $result['username'] . ' :"' . $input['komentar'] . '"';
+        $this->db->where('id', $input['id_fisherman']);
+        $result2 = $this->db->get('fisherman')->row_array();
+        $title = $result2['username'] . ' mengomentari status anda';
+        $message = $result2['username'] . ' :"' . $input['komentar'] . '"';
         $this->send_notification($result['id'], $title, $message);
         $this->db->set('type', 'comment');
         $this->db->set('id_fisherman_notif', $result['id']);
