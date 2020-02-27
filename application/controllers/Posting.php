@@ -74,7 +74,11 @@ class Posting extends MY_Controller {
     public function follow_post() {
         $input = $this->check_param_raw('id_fisherman', 'id_follower');
         $callback = $this->model->follow($input);
-        $callback == 'follow' ? $this->m_notifikasi->follow($input) : null;
+        if($callback == 'follow'){
+            if(!$this->m_notifikasi->follow($input)){
+                $callback= false;
+            }
+        }
         $this->get_response($callback);
     }
 

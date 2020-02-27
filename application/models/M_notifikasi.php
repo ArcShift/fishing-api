@@ -75,7 +75,7 @@ class M_notifikasi extends MY_Model {
         $this->db->set('id_fisherman_notif', $input['id_fisherman']);
         $this->db->set('id_fisherman_action', $input['id_follower']);
         $this->db->set('title', $title);
-        $this->db->insert('fisherman_notification_social_media');
+        return $this->db->insert('fisherman_notification_social_media');
     }
 
     function sosial_media($input) {
