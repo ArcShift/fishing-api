@@ -68,7 +68,7 @@ class M_notifikasi extends MY_Model {
     function follow($input) {
         $this->db->where('id', $input['id_follower']);
         $result = $this->db->get('fisherman f')->row_array();
-        $this->db->where('type', 'comment'); //CHECK REDUNDANT
+        $this->db->where('type', 'follow'); //CHECK REDUNDANT
         $this->db->where('id_fisherman_notif', $result['id']);
         $this->db->where('id_fisherman_action', $input['id_fisherman']);
         $count = $this->db->count_all_results('fisherman_notification_social_media');
