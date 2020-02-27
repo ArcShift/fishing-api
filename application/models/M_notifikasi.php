@@ -45,14 +45,16 @@ class M_notifikasi extends MY_Model {
         $this->db->where('fp.id', $input['id_post']);
         $this->db->join('fisherman f', 'f.id=fp.id_fisherman');
         $result = $this->db->get('fisherman_post fp')->row_array();
+        $this->db->where('f.id', $input['id_fisherman']);
+        $result2 = $this->db->get('fisherman')->row_array();
         $this->db->where('type', 'like');
         $this->db->where('id_fisherman_notif', $result['id']);
         $this->db->where('id_fisherman_action', $input['id_fisherman']);
         $this->db->where('id_post', $input['id_post']);
         $count = $this->db->count_all_results('fisherman_notification_social_media');
         if ($count == 0) {
-            $title = $result['username'] . ' menyukai postingan anda';
-            $message = $result['username'] . ' menyukai postingan anda "' . $result['caption'] . '"';
+            $title = $result2['username'] . ' menyukai postingan anda';
+            $message = $result2['username'] . ' menyukai postingan anda "' . $result['caption'] . '"';
             $this->send_notification($result['id'], $title, $message);
             $this->db->set('type', 'like');
             $this->db->set('id_fisherman_notif', $result['id']);
