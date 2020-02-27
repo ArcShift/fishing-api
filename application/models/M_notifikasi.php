@@ -98,7 +98,7 @@ class M_notifikasi extends MY_Model {
         $result = $this->db->get('fisherman_notification_social_media fn')->result_array();
         foreach ($result as $k => $r) {
             $r['url_photo'] = $r['url_photo'] == null ? null : base_url('upload/profil/') . $r['url_photo'];
-            $r['url_file'] = $r['url_file'] == null ? null : base_url('upload/profil/') . $r['url_file'];
+            $r['url_file'] = $r['url_file'] == null ? null : base_url('upload/post/') . $r['url_file'];
             $result[$k] = $r;
         }
         return empty($result) ? 'no_data' : $result;
