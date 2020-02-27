@@ -24,7 +24,7 @@ class M_notifikasi extends MY_Model {
     }
 
     function komentar($input) {
-        $this->db->select('f.id, f.username');
+        $this->db->select('fp.id as id_post, f.id, f.username');
         $this->db->where('fp.id', $input['id_post']);
         $this->db->join('fisherman f', 'f.id=fp.id_fisherman');
         $result = $this->db->get('fisherman_post fp')->row_array();
@@ -34,6 +34,7 @@ class M_notifikasi extends MY_Model {
         $this->db->set('type', 'comment');
         $this->db->set('id_fisherman_notif', $result['id']);
         $this->db->set('id_fisherman_action', $input['id_fisherman']);
+        $this->db->set('id_post', $result['id_post']);
         $this->db->set('title', $title);
         $this->db->set('message', $message);
         $this->db->insert('fisherman_notification_social_media');
@@ -78,20 +79,16 @@ class M_notifikasi extends MY_Model {
     }
 
     function sosial_media($input) {
-        $this->db->where('id_fisherman_notif', $input['id_user']);
-        $result = $this->db->get('fisherman_notification_social_media')->result_array();
+        $this->db->select('fn.*, f.url_photo, f.username, fpf.url_file');
+        $this->db->where('fn.id_fisherman_notif', $input['id_user']);
+        $this->db->join('fisherman f','f.id= fn.id_fisherman_action');
+        $this->db->join('fisherman_post fp','fp.id=fn.id_post', 'left');
+        $this->db->join('fisherman_post_files fpf','fp.id=fpf.id_fisherman_post','left');
+        $this->db->group_by('fn.id');
+        $result = $this->db->get('fisherman_notification_social_media fn')->result_array();
         foreach ($result as $k => $r) {
-            switch ($r['type']) {
-                case 'comment': {
-                        
-                    }break;
-                case 'follow': {
-                        
-                    }break;
-                case 'like': {
-                        
-                    }break;
-            }
+            $r['url_photo']= base_url('upload/profil/').$r['url_photo'];
+            $r['url_file']= base_url('upload/profil/').$r['url_file'];
             $result[$k] = $r;
         }
         return empty($result)?'no_data':$result;
