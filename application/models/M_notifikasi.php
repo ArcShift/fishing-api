@@ -50,7 +50,7 @@ class M_notifikasi extends MY_Model {
         $this->db->where('id_fisherman_action', $input['id_fisherman']);
         $this->db->where('id_post', $input['id_post']);
         $count = $this->db->count_all_results('fisherman_notification_social_media');
-        if ($count == 0) {
+        if ($count != 1) {
             $title = $result['username'] . ' menyukai postingan anda';
             $message = $result['username'] . ' menyukai postingan anda "' . $result['caption'] . '"';
             $this->send_notification($result['id'], $title, $message);
@@ -66,32 +66,38 @@ class M_notifikasi extends MY_Model {
     }
 
     function follow($input) {
-        //CHECK REDUNDANT
         $this->db->where('id', $input['id_follower']);
         $result = $this->db->get('fisherman f')->row_array();
-        $title = $result['username'] . ' mengikuti anda';
-        $this->send_notification($input['id_fisherman'], $title, '');
-        $this->db->set('type', 'follow');
-        $this->db->set('id_fisherman_notif', $input['id_fisherman']);
-        $this->db->set('id_fisherman_action', $input['id_follower']);
-        $this->db->set('title', $title);
-        return $this->db->insert('fisherman_notification_social_media');
+        $this->db->where('type', 'comment'); //CHECK REDUNDANT
+        $this->db->where('id_fisherman_notif', $result['id']);
+        $this->db->where('id_fisherman_action', $input['id_fisherman']);
+        $count = $this->db->count_all_results('fisherman_notification_social_media');
+        if ($count != 1) {
+            $title = $result['username'] . ' mengikuti anda';
+            $this->send_notification($input['id_fisherman'], $title, '');
+            $this->db->set('type', 'follow');
+            $this->db->set('id_fisherman_notif', $input['id_fisherman']);
+            $this->db->set('id_fisherman_action', $input['id_follower']);
+            $this->db->set('title', $title);
+            return $this->db->insert('fisherman_notification_social_media');
+        }
+        return true;
     }
 
     function sosial_media($input) {
         $this->db->select('fn.*, f.url_photo, f.username, fpf.url_file');
         $this->db->where('fn.id_fisherman_notif', $input['id_user']);
-        $this->db->join('fisherman f','f.id= fn.id_fisherman_action');
-        $this->db->join('fisherman_post fp','fp.id=fn.id_post', 'left');
-        $this->db->join('fisherman_post_files fpf','fp.id=fpf.id_fisherman_post','left');
+        $this->db->join('fisherman f', 'f.id= fn.id_fisherman_action');
+        $this->db->join('fisherman_post fp', 'fp.id=fn.id_post', 'left');
+        $this->db->join('fisherman_post_files fpf', 'fp.id=fpf.id_fisherman_post', 'left');
         $this->db->group_by('fn.id');
         $result = $this->db->get('fisherman_notification_social_media fn')->result_array();
         foreach ($result as $k => $r) {
-            $r['url_photo']= base_url('upload/profil/').$r['url_photo'];
-            $r['url_file']= base_url('upload/profil/').$r['url_file'];
+            $r['url_photo'] = base_url('upload/profil/') . $r['url_photo'];
+            $r['url_file'] = base_url('upload/profil/') . $r['url_file'];
             $result[$k] = $r;
         }
-        return empty($result)?'no_data':$result;
+        return empty($result) ? 'no_data' : $result;
     }
 
     private function send_notification($userId, $title, $message) {
