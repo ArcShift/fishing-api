@@ -50,7 +50,7 @@ class M_notifikasi extends MY_Model {
         $this->db->where('id_fisherman_action', $input['id_fisherman']);
         $this->db->where('id_post', $input['id_post']);
         $count = $this->db->count_all_results('fisherman_notification_social_media');
-        if ($count != 1) {
+        if ($count == 0) {
             $title = $result['username'] . ' menyukai postingan anda';
             $message = $result['username'] . ' menyukai postingan anda "' . $result['caption'] . '"';
             $this->send_notification($result['id'], $title, $message);
@@ -72,7 +72,7 @@ class M_notifikasi extends MY_Model {
         $this->db->where('id_fisherman_notif', $result['id']);
         $this->db->where('id_fisherman_action', $input['id_fisherman']);
         $count = $this->db->count_all_results('fisherman_notification_social_media');
-        if ($count != 1) {
+        if ($count == 0) {
             $title = $result['username'] . ' mengikuti anda';
             $this->send_notification($input['id_fisherman'], $title, '');
             $this->db->set('type', 'follow');
