@@ -36,7 +36,7 @@ class Posting extends MY_Controller {
 
     public function detail_get() {
         $input = $this->check_param_get('id');
-        $callback = $this->model->detail($input);
+        $callback = $this->model->detail($input['id']);
         $this->get_response($callback);
     }
 
