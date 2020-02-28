@@ -104,6 +104,25 @@ class M_notifikasi extends MY_Model {
         return empty($result) ? 'no_data' : $result;
     }
 
+    function detail_post($id) {
+        $this->db->where('id', $id);
+        $result = $this->db->get('fisherman_post')->row_array();
+        if (empty($result)) {
+            return 'no_data';
+        } else {
+                $this->db->select('id_fisherman, created_at');
+                $this->db->where('id_fisherman_post', $id);
+                $result['like'] = $this->db->get('fisherman_post_likes')->result_array();
+                $this->db->where('id_fisherman_post', $id);
+                $files= $this->db->get('fisherman_post_files')->result_array();
+                foreach ($files as $k=> $f) {
+                    $files[$k]['url_file']= empty($f['url_file'])?null: base_url('upload/post/') . $f['url_file'];
+                }
+                $result['files'] = $files;
+            return $result;
+        }
+    }
+
     private function send_notification($userId, $title, $message) {
         $url = 'https://fcm.googleapis.com/fcm/send';
         $headers = array(
