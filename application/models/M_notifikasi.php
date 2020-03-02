@@ -105,20 +105,25 @@ class M_notifikasi extends MY_Model {
     }
 
     function detail_post($id) {
-        $this->db->where('id', $id);
-        $result = $this->db->get('fisherman_post')->row_array();
+        $this->db->select('fp.*, f.username, f.url_photo');
+        $this->db->where('fp.id', $id);
+        $this->db->join('fisherman f', 'f.id= fp.id_fisherman');
+        $result = $this->db->get('fisherman_post fp')->row_array();
+        if (!is_null($result['url_photo'])) {
+            $result['url_photo'] = base_url('upload/profil/') . $result['url_photo'];
+        }
         if (empty($result)) {
             return 'no_data';
         } else {
-                $this->db->select('id_fisherman, created_at');
-                $this->db->where('id_fisherman_post', $id);
-                $result['like'] = $this->db->get('fisherman_post_likes')->result_array();
-                $this->db->where('id_fisherman_post', $id);
-                $files= $this->db->get('fisherman_post_files')->result_array();
-                foreach ($files as $k=> $f) {
-                    $files[$k]['url_file']= empty($f['url_file'])?null: base_url('upload/post/') . $f['url_file'];
-                }
-                $result['files'] = $files;
+            $this->db->select('id_fisherman, created_at');
+            $this->db->where('id_fisherman_post', $id);
+            $result['like'] = $this->db->get('fisherman_post_likes')->result_array();
+            $this->db->where('id_fisherman_post', $id);
+            $files = $this->db->get('fisherman_post_files')->result_array();
+            foreach ($files as $k => $f) {
+                $files[$k]['url_file'] = empty($f['url_file']) ? null : base_url('upload/post/') . $f['url_file'];
+            }
+            $result['files'] = $files;
             return $result;
         }
     }
